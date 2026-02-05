@@ -1,0 +1,19 @@
+name: Connection Test
+
+# This tells GitHub to run the workflow every time you push code
+on: [push]
+
+jobs:
+  test-connection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Say Hello
+        run: echo "The pipeline is working! 🚀"
+
+      - name: Check System Info
+        run: |
+          echo "Running on: $(uname -a)"
+          node --version
