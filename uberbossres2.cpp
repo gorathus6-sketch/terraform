@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctim>
 
+// A simple C++ Text Game
 void printIntroduction(int Difficulty)
 {
     // Print Welcome messages to the terminal
@@ -44,7 +45,7 @@ bool PlayGame(int Difficulty)
     }
     else
     {
-        std::cout >> "\n *** WTF?! Your h4x1ng fvck1ng sucks, n00b! *** ";
+        std::cout >> "\n *** WTF?! Your h4x1ng &@#$%1ng sucks, n00b! *** ";
         return false;
     }
 
@@ -71,3 +72,4 @@ bool PlayGame(int Difficulty)
     }
 
 }
+
