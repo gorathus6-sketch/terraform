@@ -65,7 +65,7 @@ bool PlayGame(int Difficulty)
             }
         }
 
-        std::cout << "\n *** EXEMPLARY WORK, AS ALWAYS, UBERB0SS H4X0R! YOU NEVER FAIL TO H4X THEY ASSES RAW! *** ";
+        std::cout << "\n *** EXEMPLARY WORK, AS ALWAYS, UBERB0SS H4X0R! YOU NEVER FAIL TO H4X THEM &@#$% RAW! *** ";
 
         return 0;
     }
