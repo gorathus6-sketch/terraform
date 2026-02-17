@@ -4,7 +4,7 @@
 void printIntroduction(int Difficulty)
 {
     // Print Welcome messages to the terminal
-    std::cout << "\n\n You are uberb0ss h4x0r 2.0. Your mission: to hack into an untheticl corporation;"
+    std::cout << "\n\n You are uberb0ss h4x0r 2.0. Your mission: to hack into an unthethical corporation;"
     std::cout << "\n\n Your uberb0ss h4x1ng level is " << Difficulty;
     std::cout << "\n\n Welcome back from retirement! Nead to break the code, yo...\n\n"; 
 }
@@ -65,7 +65,7 @@ bool PlayGame(int Difficulty)
             }
         }
 
-        std::cout << "\n *** EXEMPLARY WORK, AS ALWAYS, UBERB0SS H4X0R! YOU NEVER FAIL TO H4X THEY ASSES RAW! *** ";
+        std::cout << "\n *** EXEMPLARY WORK, AS ALWAYS, UBERB0SS H4X0R! YOU NEVER FAIL TO H4X THEM &@#$% RAW! *** ";
 
         return 0;
     }
