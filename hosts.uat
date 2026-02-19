@@ -1,0 +1,6 @@
+[webservers]
+web01.empath-uat.com
+web02.empath-uat.com
+
+[dbservers]
+db01.empath-uat.com
