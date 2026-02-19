@@ -1,0 +1,18 @@
+- name: Setup Web Servers
+  hosts: webservers
+  become: true
+  any_errors_fatal: true
+
+  vars_files:
+    - vars.main.yml
+
+  roles:
+    - common
+    - nginx
+    - app_deploy
+
+  post_tasks:
+    - name: Verify service is active
+      service:
+        name: nginx
+        state: started
