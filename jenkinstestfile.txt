@@ -1,0 +1,47 @@
+// Jenkins Test File
+pipeline {
+  agent any
+
+  environment
+      PROJECT_NAME = 'web-portal'
+      BUILD_ENV = 'production'
+
+  }
+
+  stages {
+      stage('Checkout') {
+          steps {
+              checkout scm
+          }
+      }
+
+      stage('Security Scan') {
+          steps {
+              echo 'Running vulnerability checks on dependencies'
+              // In a real scenario, you could call another tool here (snyk or trivy)
+
+          }
+      }
+
+      stage('Unit Tests') {
+          steps {
+              sh 'npm test'
+          }
+      }
+
+      stage('Artifact Archival') {
+          steps {
+              archiveArtifacts artifacts: 'dist**', fingerprint: true
+          }
+      }
+}
+
+post {
+    always {
+        echo 'Cleaning up the workspace to save disk space'
+        cleanWs()
+    }
+    failure {
+        echo 'The build has failed, sending notification to team.'
+    }
+}
