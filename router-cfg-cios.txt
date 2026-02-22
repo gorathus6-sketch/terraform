@@ -1,0 +1,89 @@
+# router syntax: Internal Router Config
+
+enable
+configure terminal
+interface GigabitEthernet0 0
+
+hostname INTERNAL_RTR
+interface GigabitEthernet0 0
+ description LAN_INTERFACE
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+exit
+
+interface GigabitEthernet0 1
+ description CONNECT_TO_DMZ_ROUTER
+ ip address 192.168.2.1 255.255.255.252
+ no shutdown
+
+router ospf 1
+ network 192.168.1.0 0.0.0.255 area 0
+ network 192.168.2.0 0.0.0.3 area 3
+
+# DMZ router config
+
+enable
+configure termminal
+hostname DMZ_RTR
+interface GigabitEthernet0 0
+ description OUTSIDE_INTERNET
+ ip address [public_ip] [subnet_mask]
+ no shutdown
+
+interface GigabitEthernet0 1
+ description DMZ_SERVER_ZONE
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+
+interface GigabitEthernet0 2
+ description CONNECT_TO_INTERNAL
+ ip address 192.168.2.2 255.255.255.252
+ no shutdown
+
+#
+# GatewaySubnet connection gets created in Azure
+#
+
+# VPN handshake
+
+crypto ikev2 proposal AZURE-PROP
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+
+crypto ikev2 policy AZURE-POL
+ proposal AZURE-PROP
+
+crypto ikev2 keyring AZURE-KEY
+ peer AZURE-GW
+  address [Azure_Gateway_Public_IP]
+  pre-shared-key Your_Strong_Secret_Key
+
+# Virtual Tunnel VTI
+
+interface Tunnel1
+ ip address 169.254.0.1 255.255.255.2
+ tunnel source [your_outside_interface]
+ tunnel mode ipsec ipv4
+ tunnel destination [Azure_Gateway_Public_IP]
+ ip tcp adjust-mss 1350
+
+# DHCP config
+
+ip dhcp excluded-address 192.168.1.1 192.168.1.20
+!
+ip dhcp pool OFFICE_LAN
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 8.8.8.8 1.1.1.1
+ lease 8
+
+ip dhcp pool PRINTER_1
+ host 192.168.1.16 255.255.255.0
+ client-identifier 01aa.bbcc.ddee.ff
+
+ip dhcp pool PRINTER_1
+ host 192.168.1.16 255.255.255.0
+ client-identifier 01bb.ccdd.eeff.11
+
+show ip dhcp binding
