@@ -1,0 +1,83 @@
+# Internal Router Config
+
+set system host-name INTERNAL_RTR
+
+set interfaces ge-0/0/0 description "LAN_INTERFACE"
+set interfaces ge-0/0/0 unit 0 family inet address 192.168.1.1/24
+
+set interfaces ge-0/0/1 description "CONNECT_TO_DMZ_ROUTER"
+set interfaces ge-0/0/1 unit 0 family inet address 192.168.2.1/30
+
+set protocols ospf area 0 interface ge-0/0/0.0
+set protocols ospf area 0 interface ge-0/0/1.0
+
+
+# DMZ Route Config
+
+set system host-name DMZ_RTR
+
+set interfaces ge-0/0/0 description "OUTSIDE INTERNET"
+set interfaces ge-0/0/0 unit 0 family inet address <Public_IP/<Mask_CIDR>
+
+set interfaces ge-0/0/1 description "DMZ_SERVER_ZONE"
+set interfaces ge-0/0/1 unit 0 family inet address 192.168.10.1/24
+
+set interfaces ge-0/0/2 description "CONNECT_TO_INTERNAL"
+set interfaces ge-0/0/2 unit 0 family inet address 192.168.2.2/30
+
+
+# VPN Handshake
+
+set security ike proposal AZURE-PROP authentication-method pre-shared-keys
+set security ike proposal AZURE-PROP dh-group group 14
+set security ike proposal AZURE-PROP authentication-algorithm sha-256
+set security ike proposal AZURE-PROP encryption-algorithm aes-256-cbc
+
+set security ike policy AZURE-POL mode main
+set security ike policy AZURE-POL proposals AZURE-PROP
+set security ike policy AZURE-POL pre-shared-key ascii-text "Your_Strong_Secret_Key"
+
+set security ike gateway AZURE-GW ike-policy AZURE-POL
+set security ike gateway AZURE-GW address <Azure_Gateway_Public_IP>
+set security ike gateway AZURE-GW external-interface ge-0/0/0
+set security ike gateway AZURE-GW version v2-only
+
+
+# Virtual Tunnel st0.1
+
+set interfaces st0 unit 1 family inet address 169.254.0.1/30
+
+set security zones security-zone vpn-zone interfaces st0.1
+
+set security ipsec proposal AZURE-IPSEC-PROTOCOL protocol esp
+set security ipsec proposal AZURE-IPSEC-PROTOCOL encryption-algorithm aes-256-cbc
+set security ipsec proposal AZURE-IPSEC-PROTOCOL authentication-algorithm hmac-sha-256-128
+
+set security ipsec policy AZURE-IPSEC-POL proposals AZURE-IPSEC-PROTOCOL
+set security ipsec policy AZURE-IPSEC-POL perfect-forward-secrecy keys group14
+
+set security ipsec vpn AZURE-VPN ike gateway AZURE-GW
+set security ipsec vpn AZURE-VPN ike ipsec-policy AZURE-IPSEC-POL
+set security ipsec vpn AZURE-VPN bin-interface st0.1
+set security ipsec vpn AZURE-VPN establish-tunnels immediately
+
+set security flow tcp-mass ipsec-vpn mss 1350
+
+
+# DHCP Config
+
+set access address-assignment pool OFFICE_LAN family inet network 192.168.1.0/24
+set access address-assignment pool OFFICE_LAN family inet range DYNAMIC_RANGE high 192.168.1.254
+
+set access address-assignment pool OFFICE_LAN family inet dhcp-attributes router 192.168.1.1
+set access address-assignment pool OFFICE_LAN family inet dhcp-attributes name-server 8.8.8.8
+set access address-assignment pool OFFICE_LAN family inet dhcp-attributes name-server 1.1.1.1
+set access address-assignment pool OFFICE_LAN family inet dhcp-attributes lease-time 28800
+
+set access address-assignment pool OFFICE_LAN family inet host PRINTER_1 hardware-address aa:bb:cc:dd:ee:ff
+set access address-assignment pool OFFICE_LAN family inet host PRINTER_1 ip-address 192.168.1.15
+
+set access address-assignment pool OFFICE_LAN family inet host PRINTER_2 hardware-address bb:cc:dd:ee:ff:11
+set access address-assignemnt pool OFFICE_LAN family inet host PRINTER_2 ip-address 192.168.1.16
+
+set system services dhcp-local-server group DHCP-GRP interface ge-0/0/0
