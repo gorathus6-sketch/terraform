@@ -1,25 +1,20 @@
 #!/bin/bash
 
-# 1) build date var
-CURRENT_DAY=$(date +"%Y%m%d")
-FILENAME="ach_${CURRENT_DAY}.csv"
+CURRENTDATE=$(date +%Y%m%d)
 
-echo "checking for file $FILENAME"
+# define target file
+SOURCE_FILE=ach_$CURRENTDATE.ach
 
-# 2) remote defs
-REMOTE_USER="airflowftp"
-REMOTE_HOST=192.168.103.44
-REMOTE_PATH='C:\inetpub\wwwroot\ftp\achin\'
-LOCAL_DEST='/opt/servicemix/ingestion/'
+# define path and file
+SOURCE_DIR=/mnt/c/inetpub/wwwroot/sftp/achin
+SOURCE_PATH=$SOURCE_DIR/$SOURCE_FILE
 
-# 3) exec scp
-scp -i ~/.ssh/airflowftp.pem "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/${FILENAME}" \ ${LOCAL_DEST}
-
-
-if [ $ -ne 0 ]; then
-    echo "SCP failed for file: $FILENAME"
+# Test the path
+if [ -f $SOURCE_PATH ]
+then
+    scp $SOURCE_PATH /p4848/spool
+    echo Success: $SOURCE_FILE moved!
+else
+    echo Error: $SOURCE_FILE was not found in $SOURCE_DIR
     exit 1
 fi
-
-echo "Successfully transfered: $FILENAME"
-exit 0
