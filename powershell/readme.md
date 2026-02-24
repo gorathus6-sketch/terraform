@@ -3,8 +3,6 @@
 A production‑ready PowerShell script designed to perform common operational health checks on Windows systems.  
 This script demonstrates clean automation practices, parameterized execution, structured logging, and error handling — ideal for cloud, DevOps, and systems administration environments.
 
----
-
 ## 🚀 Features
 
 - Disk usage monitoring for any drive  
@@ -14,7 +12,5 @@ This script demonstrates clean automation practices, parameterized execution, st
 - Timestamped log file output  
 - Clean, readable PowerShell with functions and parameters  
 - Exit codes suitable for CI/CD, Airflow, Jenkins, or monitoring tools  
-
----
 
 ## 📂 Repository Structure
