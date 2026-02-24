@@ -1,0 +1,18 @@
+azure-empath/
+  ├── main.tf
+  ├── providers.tf
+  ├── variables.tf
+  ├── outputs.tf
+  └── modules/
+      ├── resource_group/
+      │   ├── main.tf
+      │   ├── variables.tf
+      │   └── outputs.tf
+      ├── network/
+      │   ├── main.tf
+      │   ├── variables.tf
+      │   └── outputs.tf
+      └── nsg/
+          ├── main.tf
+          ├── variables.tf
+          └── outputs.tf
