@@ -1,0 +1,17 @@
+---
+- name: Install MariaDB server
+  ansible.builtin.yum:
+    name: mariadb-server
+    state: present
+
+- name: Deploy my.cnf
+  ansible.builtin.template:
+    src: my.cnf.j2
+    dest: /etc/my.cnf
+
+- name: Ensure Maria is running
+  ansible.builtin.service:
+    name: mariadb
+    state: started
+    enabled: true
+    
