@@ -14,3 +14,13 @@ This script demonstrates clean automation practices, parameterized execution, st
 - Exit codes suitable for CI/CD, Airflow, Jenkins, or monitoring tools  
 
 ## 📂 Repository Structure
+
+/SystemHealthCheck │ ├── SystemHealthCheck.ps1 ├── README.md └── examples/ └── sample-log-output.txt
+
+## 🛠️ Requirements
+
+- PowerShell 5.1 or PowerShell 7+
+- Windows OS (for CIM and Event Log queries)
+- Execution policy allowing script execution:
+  ```powershell
+  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
