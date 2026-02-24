@@ -1,0 +1,18 @@
+user {{ nginx_user }};
+worker_process auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    server {
+        listen {{ nginx_port }}
+        server_name {{ server_name }};
+
+        locations / {
+            root /user/share/nginx/html;
+            index index.html;
+        }
+    }
+}
