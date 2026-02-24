@@ -1,0 +1,10 @@
+---
+
+# 🧱 **2. ansible.cfg**
+
+```ini
+[defaults]
+inventory = inventories/dev/hosts.ini
+roles_path = roles
+host_key_checking = False
+retry_files_enabled = False
