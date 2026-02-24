@@ -1,0 +1,9 @@
+[mysqld]
+port={{ mysqld_port }}
+bind-address={{ mysql_bind_address }}
+datadir=/var/lib/mysql.sock
+symbolic-links=0
+
+[mysql_safe]
+log-errors=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/marid.pid
