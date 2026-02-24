@@ -1,0 +1,66 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  terraform-apply:
+    name: Apply Terraform Changes
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout resposity
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+
+      # ---------------
+      # Azure OIDC Auth
+      # ---------------
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # ---------------------
+      # Terraform Apply Steps
+      # ---------------------
+      - name: Terraform Init
+        id: Init
+        run: terraform init -input=false
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve -input=false
+
+      # -----------------------
+      # Post apply output to PR
+      # -----------------------
+      - name: Post Apply Results to PR
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+        uses: marocchino/sticky-pull-requests-comment@v2
+        with:
+          recreate: true
+          header: terraform-apply
+          message: |
+            ## Terraform Apply Results
+            **Branch:** `${{ github.ref }}`
+            **Commit:** `${{ github.sha }}`
+            ```
+            ${{ steps.apply.outputs.stdout }}
+            ```
