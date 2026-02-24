@@ -1,0 +1,18 @@
+ansible-infra-automation/
+  inventories/
+    dev/
+      hosts.ini
+      group_vars/
+        webservers.yml
+        dbservers.yml
+  playbooks/
+    site.yml
+    web.yml
+    db.yml
+  roles/
+    webserver/
+    database/
+  templates/
+    nginx.conf.j2
+    my.cnf.j2
+  README.md
