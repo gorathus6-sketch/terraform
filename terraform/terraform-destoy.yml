@@ -1,0 +1,66 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type DESTROY to confirm you want to destroy the environment"
+        required: true
+        default: "NO"
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  terraform-destroy:
+    name: Destroy Terraform Infrastructure
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.inputs.confirm == 'DESTROY' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+    
+      # ---------------
+      # Azure OIDC Auth
+      # ---------------
+      - name: Azure Login (OICD)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENENT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # -----------------------
+      # Terraform Destroy Steps
+      # -----------------------
+      - name: Terraform Init
+        run: terraform
+
+      - name: Terraform Plan Destroy
+        id: plan
+        run: terraform plan -destroy -no-color -input=false
+      
+      # --------------------------------------
+      # Post destroy output to PR (if applies)
+      # --------------------------------------
+      - name: Post Destroy Results to PR
+        if: github.even.pull_request.number != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          header: terraform-destroy
+          message: |
+            ## Terraform Destroy Results
+            ```
+            ${{ steps.destroy.outputs.stdout }}
+            ```
+            
