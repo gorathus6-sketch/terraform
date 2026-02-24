@@ -1,0 +1,60 @@
+name: Terraform CI
+
+on:
+  pull_requests:
+    branches: [ "main" ]
+  push:
+    branches: [ "feature/*", "bugfix/*" ]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  terraform-ci
+    name: Terraform Validate & Plan
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+     - name: Checkout repository
+       uses: actions/checkout@v4
+
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v3
+       with:
+         terraform_version: 1.6.0
+
+     - name: Terraform Formate Check
+       id: fmt
+       run: terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - name: Add Plan Output to PR
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          header: terraform-plan
+            message: |
+              ## Terraform Plan Output
+              ```
+              ${{ steps.plan.output.stdout }}
+              ```
+      - name: Fail if Plan Failed
+        if: steps.plan.outcome == 'failure'
+        run: |
+          echo "Terraform plan failed. See PR comment for more info."
+          exit 1
