@@ -1,0 +1,9 @@
+image: alpine:3.19
+
+pipelines:
+  default:
+    - step:
+        name: Run script
+        script:
+          - chmod +x app/hello.sh
+          - ./app/hello.sh
