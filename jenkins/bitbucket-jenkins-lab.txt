@@ -1,0 +1,5 @@
+bitbucket-jenkins-lab/
+├── app/
+│   └── hello.sh
+├── Jenkinsfile
+└── bitbucket-pipelines.yml
