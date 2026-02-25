@@ -1,0 +1,7 @@
+pipelines:
+  default:
+    - step:
+        name: Build and Test
+        image: maven:3.8.6
+        script:
+          - mvn clean install
