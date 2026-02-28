@@ -1,0 +1,16 @@
+# CODE LOAD MERGE:
+
+git diff release..uat -- version.sh
+git merge release
+git checkout uat
+git merge release
+git pull
+git checkout release
+git pull
+git checkout uat
+git pull
+git merge release
+nano version.sh
+git add version.sh
+git commit -m "resolve merge conflict, merge release into uat"
+git push
