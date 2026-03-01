@@ -1,11 +1,10 @@
 #include <iostream>
-#include <ctim>
+#include <ctime>
 
-// A simple C++ Text Game
-void printIntroduction(int Difficulty)
+void PrintIntroduction(int Difficulty)
 {
     // Print Welcome messages to the terminal
-    std::cout << "\n\n You are uberb0ss h4x0r 2.0. Your mission: to hack into an unthethical corporation;"
+    std::cout << "\n\n You are uberb0ss h4x0r 2.0. Your mission: to hack into an unthethical corporation";
     std::cout << "\n\n Your uberb0ss h4x1ng level is " << Difficulty;
     std::cout << "\n\n Welcome back from retirement! Nead to break the code, yo...\n\n"; 
 }
@@ -34,24 +33,27 @@ bool PlayGame(int Difficulty)
     std::cin >> GuessA >> GuessB >> GuessC >> GuessD >> GuessE;
     std::cout << "\n You entered: " << GuessA << GuessB << GuessC << GuessD << GuessE << std::endl;
 
-    int GuessCum = GuessA + GuessB + GuessC + GuessD + GuessE;
+    int GuessSum = GuessA + GuessB + GuessC + GuessD + GuessE;
     int GuessProduct = GuessA * GuessB * GuessC * GuessD * GuessE;
 
     // Chick if the player's guess is correct
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        std::cout << "\n *** You did it, as always, uberb0ss h4x0r! Keep on h4x1ng! ***"
+        std::cout << "\n *** You did it, as always, uberb0ss h4x0r! Keep on h4x1ng! ***";
         return true;
     }
     else
     {
-        std::cout >> "\n *** WTF?! Your h4x1ng &@#$%1ng sucks, n00b! *** ";
+        std::cout << "\n *** WTF?! Your h4x1ng fvck1ng sucks, n00b! *** ";
         return false;
     }
+}
 
-    int main()
+int main()
     {
         srand(time(NULL));
+
+        int LevelDifficulty = 1;
         int const MaxDifficulty = 6;
         
         while (LevelDifficulty <= MaxDifficulty) // Loop game until all levels are complete
@@ -70,6 +72,4 @@ bool PlayGame(int Difficulty)
 
         return 0;
     }
-
-}
 
