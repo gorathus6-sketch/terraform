@@ -2,7 +2,7 @@
   <img src="assets/empathome.png" alt="EMPATH Learning Center Logo" width="640">
 </p>
 
-<p align="center"><strong>Build. Secure. Teach. Empower.</strong></p>
+<p align="center"><strong>Our Core Principles: Build. Secure. Teach. Empower.</strong></p>
 
 About EMPATHOME (empath x epitome) CLOUD SYSTEMS LLC:
 
