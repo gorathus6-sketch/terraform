@@ -8,7 +8,7 @@ echo "[$(date)] Starting Wildfly maintenance restart..."
 
 # stop service
 systemctl stop $SERVICE_NAME
-if [ $? 0 ]; then
+if [ $? -ne 0 ]; then
     echo "[$(date)] Error: Failed to stop Wildfly."
     exit 1
 fi
