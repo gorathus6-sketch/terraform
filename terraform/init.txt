@@ -1,0 +1,8 @@
+# Via GitBash
+az login
+az account set --subscription "<subscription_id>"
+terraform init
+terraform fmt -recursive
+terraform validate
+terraform plan -out=tfplan
+terraform apply tfplan
