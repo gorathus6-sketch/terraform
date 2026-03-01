@@ -10,4 +10,4 @@ EMPATHOME LEARNING CENTERS:
 
 Training the next generation of Cloud and Security Engineers.
 
-At Empathome Cloud Systems LLC, we foster an environment inclusive to all. Ethnicity, race, religion, ability, sexual orientation, social status, at the end of the day we must look beyond optics and celebrate everyone's ability to contribute to a harmonious and properous society.
+At Empathome Cloud Systems LLC, we foster an environment inclusive to all. Ethnicity, race, religion, ability, sexual orientation, social status; At the end of the day we must look beyond optics and celebrate everyone's ability to contribute to a harmonious and properous society.
