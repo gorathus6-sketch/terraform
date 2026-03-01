@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/empathome.png" alt="EMPATH Learning Center Logo" width="200">
+  <img src="assets/empathome.png" alt="EMPATH Learning Center Logo" width="640">
 </p>
 
 About EMPATHOME (empath x epitome) CLOUD SYSTEMS LLC:
