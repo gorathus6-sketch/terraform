@@ -1,4 +1,4 @@
-About EMPATHOME (empath x epitome) CLOUD SYSTEMS LLC
+About EMPATHOME (empath x epitome) CLOUD SYSTEMS LLC:
 
 All your data, replicated across multiple Georedundant regions and zones. With the highest standard of encryption. With the most aggressive back up policies.
 
