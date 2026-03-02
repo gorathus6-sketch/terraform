@@ -1,0 +1,36 @@
+cd /etc/ansible
+mkdir inventories
+cd inventories&&mkdir local
+
+touch hosts.ini
+nano hosts.ini
+[local]
+localhost ansible_connection=local
+[webservers]
+localhost ansible_connection=local
+
+cd ../..
+
+nano ansible.cfg
+[defaults]
+inventory = inventories/local/hosts.ini
+host_key_checking = False
+retry_files_enabled = False
+
+nano site.yml
+- name: Update web servers
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Ensure apache is the latest version
+      apt:
+        name: apache2
+        state: latest
+
+ansible-playbook site.yml --syntax-check
+
+sudo visudo
+@includedir /etc/sudoers.d
+ansibleuser ALL=(ALL) NOPASSWD:ALL
+
+ansible-playbook site.yml
