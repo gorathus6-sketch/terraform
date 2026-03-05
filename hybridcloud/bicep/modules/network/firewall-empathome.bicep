@@ -11,7 +11,7 @@ var firewallSubnetName = 'AzureFirewallSubnet'
 param skuTier string = 'Standard'
 
 @description('Optional application rule collections')
-param appRuleCollections array = [
+param appRuleCollections array = []
     
 @description('Optional network rule collections')
 param  dnaRuleCollections array = []
@@ -99,6 +99,34 @@ resource dnatRules 'Microsoft.Network/firewallPolicies/ruleCollectionGroups@2022
     properties: {
         priority: 300
         ruleCollections: dnatRuleCollections
+    }
+}
+
+resource fwDiag 'Microsoft.Insights/diagnosticSettings@2023-02-02-preview' = {
+    name: 'fw-diag'
+    scope: fw
+    properties: {
+        workspaceId: logAnalyticsId
+        logs: [
+            {
+                category: 'AzureFirewallApplicationRule'
+                enabled: true
+            }
+            {
+                category: 'AzureFirewallNetworkRule'
+                enabled: true
+            }
+            {
+                category: 'AzureFirewallDnsProxy'
+                enabled: true
+            }
+        ]
+        metrics: [
+            {
+                category: 'AllMetrics'
+                enabled: true
+            }
+        ]
     }
 }
 
