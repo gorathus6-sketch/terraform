@@ -20,11 +20,11 @@ param subnets array = [
 ]
 
 resource subnetResource 'Microsoft.Network/virtualNetworks/subnets@2024-02-02' = [for sn in subnets: {
-    name = '${vnetName}/${sn.name}'
+    name: '${vnetName}/${sn.name}'
     resourceGroup: rgName
     properties: {
         addressPrefix: sn.prefix
-        networkSecurityGroup: empathy(sn.nsgId) ? null : {
+        networkSecurityGroup: empty(sn.nsgId) ? null : {
             id: sn.nsgId
         }
         routeTable: empty(sn.routeTableId) ? null : {
