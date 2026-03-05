@@ -1,0 +1,23 @@
+/bicep/modules
+│
+├── resourcegroup
+│   └── resourcegroup-empath.bicep
+│
+├── network
+│   ├── vnet.bicep
+│   ├── subnet.bicep
+│   ├── nsg.bicep
+│   ├── route-table.bicep
+│   └── firewall.bicep
+│
+├── security
+│   ├── keyvault.bicep
+│   ├── rbac-roleAssignments.bicep
+│   └── managedIdentity.bicep
+│
+├── storage
+│   └── storage.bicep
+│
+└── monitoring
+    ├── loganalytics.bicep
+    └── diagnostics.bicep (optional shared module)
