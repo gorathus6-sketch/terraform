@@ -1,0 +1,64 @@
+dcpromo
+
+repadmin /replsummary
+
+repadmin /showrepl <domaincontroller>
+
+repadmin /showreps
+
+repadmin /queue
+
+repadmin /showutdvec <domaincontroller> <namingcontext>
+
+repadmin /showtime
+
+repadmin /syncall <domaincontroller> /AeD
+
+repadmin /sync <domaincontroller> <namingcontext> <replpartner>
+
+repadmin /replicate <destDC> <sourceDC> <namingcontext>
+
+repadmin /showconn <domaincontroller>
+
+repadmin /kcc <domaincontroller>
+
+repadmin /bridgeheads
+
+repadmin /showobjmeta <domaincontroller> <RDN>
+
+repadmin /showattr <domaincontroller> <RDN>
+
+repadmin /showchanges <domaincontroller> <namingcontext>
+
+repadmin /failcache <domaincontroller>
+
+repadmin /showerror <domaincontroller>
+
+repadmin /showism
+
+repadmin /removelingeringobjects <domaincontroller> <sourceDC> <namingcontext>
+
+repadmin /rehost
+
+repadmin /prp view <readonlydomaincontroller>
+
+repadmin /prp allow|deny <readonlydomaincontroller> <account>
+
+#
+# Basics:
+#
+
+dcpromo    # promotes a host to DC, and if there is no established DC in the subnet, you can create a new forest (new domain name)
+
+repadmin
+/replsummary    # quick health snapshot
+
+/showrepl    # inbound replication status
+
+/syncall    # force replication
+
+/showconn    # show topology issues
+
+/failcache    # show replication failures
+
+/showobjects    # attribute-level metadata, incl. who made changes
