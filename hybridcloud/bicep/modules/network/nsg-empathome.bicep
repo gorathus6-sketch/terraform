@@ -39,5 +39,28 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2024-02-02' = {
     }
 }
 
+resource nsgDiag 'Microsoft.Insights/diagnosticSettings@2023-02-02-preview' = {
+    name: 'nsg-diag'
+    scope: nsg
+    properties: {
+        workspaceId: logAnalyticsId
+        logs: [
+            {
+                category: 'NetworkSecurityGroupEvent'
+                enabled: true
+            }
+            {
+                category: 'NetworkSecurityGroupRuleCounter'
+                enabled: true
+            }
+        ]
+        metrics: [
+            {
+                category: 'AllMetrics'
+                enabled: true
+            }
+        ]
+    }
+
 output nsgId string = nsg.id
 output nsgNameOut string = nsg.name
