@@ -1,0 +1,32 @@
+/bicep
+  /modules
+    network.bicep
+    compute.bicep
+    storage.bicep
+  main.bicep
+  main.parameters.json
+
+/.github/workflows
+  deploy-bicep.yml
+
+/ad-ds
+  ad-ds-build-guide.md
+  gpo-examples/
+  troubleshooting.md
+
+/vmware
+  vmware-lab-setup.md
+  vmotion-demo.md
+  networking-notes.md
+
+/hybrid-identity
+  entra-connect-setup.md
+  sync-rules.md
+  hybrid-join.md
+
+/docs
+  architecture-diagram.png
+  lab-overview.md
+  lessons-learned.md
+
+README.md
