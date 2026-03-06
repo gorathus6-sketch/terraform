@@ -1,18 +1,21 @@
-azure-empath/
-  ├── main.tf
-  ├── providers.tf
-  ├── variables.tf
-  ├── outputs.tf
-  └── modules/
-      ├── resource_group/
-      │   ├── main.tf
-      │   ├── variables.tf
-      │   └── outputs.tf
-      ├── network/
-      │   ├── main.tf
-      │   ├── variables.tf
-      │   └── outputs.tf
-      └── nsg/
-          ├── main.tf
-          ├── variables.tf
-          └── outputs.tf
+/terraform
+  /modules
+    network/
+    nsg/
+    keyvault/
+    rbac/
+    loganalytics/
+    diagnostic-settings/
+    firewall/
+    firewall-rules/
+  /envs
+    dev/
+      main.tf
+      providers.tf
+      variables.tf
+      dev.tfvars
+    uat/
+      main.tf
+      providers.tf
+      variables.tf
+      uat.tfvars
