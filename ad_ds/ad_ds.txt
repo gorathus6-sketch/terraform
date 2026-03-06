@@ -50,6 +50,11 @@ repadmin /prp allow|deny <readonlydomaincontroller> <account>
 
 dcpromo    # promotes a host to DC, and if there is no established DC in the subnet, you can create a new forest (new domain name)
 
+nltest /sc_reset    # fixes secure channel
+
+gpresult /r
+gpupdate /force    # trouble shooting GPOs
+
 repadmin
 /replsummary    # quick health snapshot
 
