@@ -1,46 +1,74 @@
-locals {
-  rg_name   = "RG-Empath-DEV"
-  vnet_name = "vnetempathdev"
-  nsg_name  = "NSG-DB-DEV"
-}
-
-module "rg_empath_dev" {
-  source   = "./modules/resource_group"
-  name     = local.rg_name
+module "resource_group" {
+  source = "./modules/resource-group"
+  name   = var.resource_group_name
   location = var.location
-  tags     = var.tags
+  tags = var.tags
 }
 
-module "network_empath_dev" {
+module "network" {
   source              = "./modules/network"
-  resource_group_name = module.rg_empath_dev.name
+  resource_group_name = module.resource_group.name
   location            = var.location
-  vnet_name           = local.vnet_name
+  vnet_name           = var.vnet_name
   address_space       = var.address_space
-  db_subnet_prefix    = var.db_subnet_prefix
-  tags                = var.tags
+  subnets             = var.subnets
 }
 
-module "nsg_db_dev" {
+module "nsg_web" {
   source              = "./modules/nsg"
-  name                = local.nsg_name
+  name                = "nsg-web-dev"
+  resource_group_name = module.resource_group.name
   location            = var.location
-  resource_group_name = module.rg_empath_dev.name
-  subnet_id           = module.network_empath_dev.db_subnet_id
-  tags                = var.tags
+  rules               = var.web_nsg_rules
 }
 
-# Example rules - tweak as needed
-inbound_rules = [
-  {
-    name                       = "allow-mssql-from-app"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "1433"
-    source_address_prefix      = "10.20.0.0/16" # app subnet range
-    destination_address_prefix = "*"
-  }
-]
+module "nsg_db" {
+  source              = "./modules/nsg"
+  name                = "nsg-db-dev"
+  resource_group_name = module.resource_group.name
+  location            = var.location
+  rules               = var.db_nsg_rules
+}
+
+module "keyvault" {
+  source              = "./modules/keyvault"
+  name                = var.keyvault_name
+  resource_group_name = module.resource_group.name
+  location            = var.location
+  tenant_id           = var.tenant_id
+  subnet_ids = [
+    module.network.subnet_ids["web"],
+    module.network.subnet_ids["db"]
+  ]
+}
+
+module "loganalytics" {
+  source              = "./modules/loganalytics"
+  name                = var.loganalytics_name
+  resource_group_name = module.resource_group.name
+  location            = var.location
+}
+
+module "rbac_admins" {
+  source               = "./modules/rbac"
+  for_each             = toset(var.admin_object_ids)
+  scope                = module.resource_group.id
+  role_definition_name = "Contributor"
+  principal_id         = each.value
+}
+
+module "rbac_non_admins" {
+  source               = "./modules/rbac"
+  for_each             = toset(var.non_admin_object_ids)
+  scope                = module.resource_group.id
+  role_definition_name = "Reader"
+  principal_id         = each.value
+}
+
+module "diagnostic_settings" {
+  source             = "./modules/diagnostic-settings"
+  target_resource_id = module.network.id
+  workpsace_id       = module.loganalytics.id
+  log_categories     = var.log_categories
+  metric_categories  = var.metric_categories
+}
