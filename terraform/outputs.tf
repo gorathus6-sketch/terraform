@@ -1,15 +1,11 @@
 output "resource_group_name" {
-  value = module.rg_empath_dev.name
+  value = module.resource_group.name
 }
 
 output "vnet_id" {
-  value = module.network_empath_dev.vnet_id
+  value = module.network.vnet_id
 }
 
-output "db_subnet_id" {
-    value = module.network_empath_dev.db_subnet_id
-}
-
-output "nsg_id" {
-  value = module.nsg_db_dev.id
+output "keyvault_uri" {
+  value = module.keyvault.vault_uri
 }
