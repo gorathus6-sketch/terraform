@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows 'sjoann' to read secrets in the 'dev' namespace
+kind: RoleBinding
+metadata:
+  name: read-secrets
+  # name of the namespace determines where permissions are granted
+  # this only grants permissions within the dev namespace
+  namespace: dev
+subjects:
+- kind: User
+  name: sjoann # name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: secret-Reader
+  apiGroup: rbac.authorization.k8.io
