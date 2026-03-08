@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-worker-to-queue
+  namespace: bank-app
+spec:
+  podSelector:
+    matchLabels:
+      app: queue
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: worker
