@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit
+  namespace: bank-app
+  labels:
+    app: audit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audit
+    template:
+      metadata:
+        labels:
+          app: audit
+      spec:
+        serviceAccountName: audit-sa
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+        containers:
+        - name: audit
+          image: gorathus6/financial-audit:latest
+          ports:
+          - containerPort: 8082
+          env:
+          - name: DB_HOST
+            value: "postgress.bank-app.svc.cluster.local"
+          - name: DB_USER
+            value: "audit_user"
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: audit-secret
+                key: DB_PASSWORD
+          redinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8082
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8082
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: 256Mi"
