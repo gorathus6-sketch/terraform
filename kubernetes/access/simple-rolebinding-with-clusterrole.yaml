@@ -5,7 +5,7 @@ metadata:
   name: read-secrets
   # name of the namespace determines where permissions are granted
   # this only grants permissions within the dev namespace
-  namespace: dev
+  namespace: bank-app
 subjects:
 - kind: User
   name: sjoann # name is case sensitive
@@ -13,4 +13,5 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: secret-Reader
+
   apiGroup: rbac.authorization.k8.io
