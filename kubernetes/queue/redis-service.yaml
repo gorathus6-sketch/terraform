@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: queue
+  namespace: bank-app
+  labels:
+    app: queue
+spec:
+  clusterIP: None
+  selector:
+    app: queue
+  ports:
+  - port: 6379
+    targetPort: 6379
