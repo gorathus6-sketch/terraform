@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: read-pods
-  namespace: default
+  namespace: bank-app
 subjects:
 # can specify more than one subject
 - kind: User
@@ -13,4 +13,5 @@ roleRef:
   # 'roleRef' specifies the biding to a Role / ClusterRole
   kind: Role #this must be Role or ClusterRole
   name: pod-reader # must match the name of the Role or ClusterRole you wis>
+
   apiGroup: rbac.authorization.k8s.io
