@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  namespace: bank-app
+  labels:
+    app: queue
+spec:
+  serviceName: rabbitmq
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue
+  template:
+    metadata:
+      labels:
+        app: queue
+      spec:
+        securityContext:
+          fsGroup: 100
+        containers:
+        - name: rabbitmq
+          image: rabbitmq:3.12-management
+          env:
+          - name: RABBITMQ_DEFAULT_USER
+            value: "worker"
+          - name: RABBITMQ_DEFAULT_PASS
+            valueFrom:
+              secretKeyRef:
+                name: worker-secret
+                key: QUEUE_PASSWORD
+          ports:
+          - containerPort: 5672
+          - containerPort: 15672
+          volumeMounts:
+          - name: rabbitmq-data
+            mountPath: /var/lib/rabbitmq
+          readinessPronbe:
+            exec:
+              command: ["rabbitmq-diagnostics", "ping"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command: ["rabbitmq-diagnostics", "ping"]
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "600m"
+              memory: "1Gi"
+  volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
