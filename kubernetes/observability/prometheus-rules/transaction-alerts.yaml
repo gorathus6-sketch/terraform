@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: transaction-alerts
+  namespace: bank-observability
+spec:
+  groups:
+  - name: transaction.rules
+    rules:
+    - alert: HighTransactionFailureRate
+    expr: |
+      sum(rate(transactions_total{status="failed"}[5m]))
+        /
+      sum(rate(transactions_tatal[5m]))
+        > 0.05
+    for: 10m
+    labels:
+      severity: warning
+      service: api
+    annotations:
+      summary: "High transaction failure rate"
+      description: "More than 5% of transactions are failing over the last 10 minutes."
