@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDistributionBudget
+metadata:
+  name: api-pdb
+  namespace: bank-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: api
+      # api scales from 2 to 6 replicas based on cpu
+      # pdb ensures at least 1 pod stays active
+      # during voluntary disruptions
