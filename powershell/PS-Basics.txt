@@ -1,0 +1,45 @@
+# Powershell
+
+# Discovery:
+
+Get-Command
+Get-Help
+Get-Member
+
+# Filtering:
+
+Where-Object
+Select-Object
+Sort-Object
+
+# System:
+
+Get-Service
+Restart-Service
+Get-Process
+Stop-Process
+
+# Networking:
+
+Test-NetConnection
+Resolve-DnsName
+Get-NetAdapter
+
+# Files:
+
+Get-ChildItem
+Copy-Item
+Move-Item
+Remove-Item
+
+# Security:
+
+Get-LocalUser
+Get-Acl
+Set-Acl
+
+# Cloud:
+
+Connect-AzAccount
+Get-AzVM
+Get-AzKeyVaultSecret
