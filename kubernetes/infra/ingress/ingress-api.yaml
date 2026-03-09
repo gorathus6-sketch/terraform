@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  namespace: bank-app
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issue: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - api.ledger-demo.empathomellc.com
+    secretName: api-tls-secret
+  rules:
+  - host: api.ledger-demo.empathomellc.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 80
