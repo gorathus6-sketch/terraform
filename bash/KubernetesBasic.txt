@@ -1,0 +1,4 @@
+kubectl get pods -A
+kubectl describe pod <name>
+kubectl logs <pod>
+kubectl exec -it <pod> -- bash
