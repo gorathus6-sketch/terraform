@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: worker-alerts
+  namespace: bank-observability
+spec:
+  groups:
+  - name: worker.rules
+    rules:
+    - alert: QueueBacklogHigh
+      expr: queue_depth > 1000
+      for: 15m
+      labels:
+        severity: critical
+        service: worker
+      annotations:
+        summary: "Queue backlog is high"
+        description: "Queue depth has been above 1000 messages for more than 15 minutes."
+    - alert: WorkersCrashLooping
+      expr: |
+        increased(kub_pod_container_status_restarts_total{namespace="bank-app", pod=~"worker-.*"}[10m]) > 3
+      for: 10m
+      labels:
+        severity: critical
+        service: worker
+      annotations:
+        summary: "Worker pods are crash looping"
+        description: "Worker containers have restarted more than 3 times in the past 10 minutes."
