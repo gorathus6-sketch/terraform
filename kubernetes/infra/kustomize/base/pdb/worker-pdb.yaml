@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: worker-pdb
+  namespace: bank-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: worker
+      # worker pool scales up to handles spikes in
+      # transaction volume, and PDB ensures at least
+      # 1 worker remains during maintenance so that
+      # the queue is never in standstill
