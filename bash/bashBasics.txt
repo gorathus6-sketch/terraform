@@ -1,0 +1,55 @@
+# Bash Basics
+
+# Navigation
+
+ls
+cd
+pwd
+find
+
+# Inspection
+
+cat
+less
+head
+tail
+tail -f
+
+# Filtering
+
+grep
+grep -i
+awk
+sed
+cut
+sort
+uniq
+
+# Processes
+
+# ps
+# ps -ef
+# top
+# htop
+# kill
+
+# Networking
+
+ss
+netstat
+curl
+dig
+traceroute
+ip addr    # formerly ifconfig
+
+# Permissions and Ownership
+
+chmod
+chown
+umask
+
+# Packaging
+
+apt
+yum
+dnf
