@@ -1,0 +1,28 @@
+hostname ASA
+enable password cisco
+
+interface g0/0
+ nameif inside
+ security-level 100
+ ip address 192.168.103.1 255.255.255.0
+ no shut
+
+interface g0/1
+ nameif outside
+ security-level 0
+ ip address 172.59.x.x 255.255.255.248
+ noshut
+
+route outside 0.0.0.0 0.0.0.0 172.59.x.x
+
+object network INSIDE-NET
+ subnet 192.168.1.0 255.255.255.0
+ nat (inside,outside) dynamic interface
+
+access-list OUTSIDE_IN extended permit tcp any host 172.59.x.x eq 443
+access-group OUTSIDE_IN in interface outside
+
+policy-map global_policy
+ class inspection_default
+  inspect icmp
+service-policy global_policy global
