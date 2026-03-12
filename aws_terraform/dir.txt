@@ -1,0 +1,13 @@
+modules/
+  vpc/
+  subnets/
+  security-groups/
+  iam/
+  kms/
+  secrets/
+  firewall/
+  cloudwatch/
+envs/
+  dev/
+  uat/
+  prod/
