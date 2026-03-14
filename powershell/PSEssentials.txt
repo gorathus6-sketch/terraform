@@ -1,0 +1,41 @@
+# POWERSHELL ESSENTIALS
+
+# Discovery / Navigation
+Get-Help    # view help for any cmdlet
+Get-Help -Full
+Get-Help -Examples
+Get-Help -Online
+
+Get-Command    # find commands by name or module
+Get-Command -Name
+Get-Command -Module
+Get-Command -Verb
+Get-Command -Noun
+
+Get-ChildItem (ls, dir)   # list files and dirs
+Get-ChildItem -Recurse
+Get-ChildItem -Filter
+Get-ChildItem -Force
+Get-ChildItem -Directory
+Get-ChildItem -File
+
+Set-Location (cd)   # change directory
+
+# process, service, sys mgmt
+
+Get-Process
+Get-Process -Name
+Get-Process -Id
+Get-Process -Force
+Get-Process -PassThru
+Stop-Process
+Stop-Process -Name
+Stop-Process -Id
+Stop-Process -Force
+Stop-Process -PassThru
+Start-Process
+
+Get-Service
+
+Get-EventLog
+Get-WinEvent
