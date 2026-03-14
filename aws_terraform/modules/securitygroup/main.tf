@@ -6,7 +6,7 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_security_group_rule" "ingress" {
-  for each = var.ingress_rules
+  for_each = var.ingress_rules
 
   type              = "ingress"
   security_group_id = aws_security_group.this.id
@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "ingress" {
   to_port     = each.value.to_port
   protocol    = each.value.protocol
 
-  cidr_block               = each.value.cidr_blocks
+  cidr_blocks              = each.value.cidr_blocks
   ipv6_cidr_blocks         = each.value.ipv6_cidr_blocks
   security_groups          = each.value.source_security_groups
   self                     = each.value.self_reference
