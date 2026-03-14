@@ -78,3 +78,29 @@ Get-Content -Pass
 Get-Content -Encoding
 Get-Content -Raw
 Get-Content -Tail
+
+Set-Content
+Add-Content
+
+Copy-Item
+Copy-Item -Recurse
+Copy-Item -Force
+Copy-Item -Filter
+
+Move-Item
+Remove-Item
+
+Test-Path    # check if file/folder exists
+
+Get-ItemProperty    # read registry keys
+
+# networking
+
+Test-NetConnection    # ping / port test
+Test-NetConnection -ComputerName
+Test-NetConnection -Port
+Test-NetConnection -InformationLevel
+
+Get-NetIPAddress
+Get-NetRoute
+Get-NetAdapter
