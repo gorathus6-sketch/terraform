@@ -46,5 +46,35 @@ Get-Service -Name
 Get-Service -DisplayName
 Get-Service -Status
 
+Start-Service
+Start-Service -Name
+Start-Service -DisplayName
+Start-Service -Status
+
+Stop-Service
+Stop-Service -Name
+Stop-Service -DisplayName
+Stop-Service -Status
+
+Restart-Service
+Restart-Service -Name
+Restart-Service -Displayname
+Restart-Service -Status
+
 Get-EventLog
+Get-EventLog -LogName
+Get-EventLog -FilterHashtable
+Get-EventLog -MaxEvents
+
 Get-WinEvent
+Get-WinEvent -LogName
+Get-WinEvent -FilterHashtable
+Get-WinEvent -MaxEvents
+
+# file, system, registry
+
+Get-Content
+Get-Content -Pass
+Get-Content -Encoding
+Get-Content -Raw
+Get-Content -Tail
