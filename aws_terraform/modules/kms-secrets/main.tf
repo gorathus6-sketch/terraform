@@ -2,7 +2,7 @@ resource "aws_kms_key" "this" {
   description             = var.kms_description
   enable_key_rotation     = var.enable_key_rotation
   policy                  = var.kms_policy_json
-  deletion_window_in days = var.deletion_window_in_days
+  deletion_window_in_days = var.deletion_window_in_days
   tags                    = var.tags
 }
 
