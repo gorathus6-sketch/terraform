@@ -79,8 +79,17 @@ Get-Content -Encoding
 Get-Content -Raw
 Get-Content -Tail
 
-Set-Content
+Get-Content
+Get-Content -Tail
+Get-Content -Wait
+Get-Content -Raw
+Get-Content -Encoding
+
 Add-Content
+Add-Content -Tail
+Add-Content -Wait
+Add-Content -Raw
+Add-Content -Encoding
 
 Copy-Item
 Copy-Item -Recurse
@@ -88,6 +97,9 @@ Copy-Item -Force
 Copy-Item -Filter
 
 Move-Item
+Move-Item -Recurse
+Move-Item -Force
+Move-Item -
 Remove-Item
 
 Test-Path    # check if file/folder exists
@@ -100,7 +112,72 @@ Test-NetConnection    # ping / port test
 Test-NetConnection -ComputerName
 Test-NetConnection -Port
 Test-NetConnection -InformationLevel
+Test-NetConnection -TraceRoute
 
 Get-NetIPAddress
 Get-NetRoute
 Get-NetAdapter
+
+# Objects and Pipelines
+
+# pipe objects rather than text
+# Get running services:
+Get-Service | Where-Object {$_.Status-eq "Running"} | Sort-Object Name
+
+# Filtering & Searching
+- Where-Object    # filter objects
+- Select-Object    # choose fields
+- Sort-Object    # sort output
+- Measure-Object    # count, sum, average
+
+# Error Handling
+- Try { } Catch { } Finally { }
+- $ErrorActionPreference = "Stop"
+- -ErrorAction Stop
+
+# Azure PowerShell / Az Module
+# authentication / context
+Connect-AzAccount
+Get-AzContext
+Set-AzContext
+
+# Az Resource Mgmt
+Get-AzResourceGroup
+New-AzResourceGroup
+Remove-AzResourceGroup
+
+Get-AzResource -ResourceType
+Get-AzResource -ResourceGroupName
+
+# VMs
+
+Get-AzVM
+Start-AzVM
+Stop-AzVM
+Restart-AzVM
+# comman parameters: -ResourceGroupName
+# -Name
+# -Status
+
+# IAM / RBAC
+
+Get-AzADUser
+Get-AzADGroup
+Get-AzRoleAssignment
+
+New-AzRoleAssignment
+# common parmaters, -ObjectId, -RoleDefinitionName, -Scope
+
+# monitoring
+
+Get-AzMetric
+Get-AzLog
+
+# Common parameters used everywhere
+-Verbose    # show details of exec
+-WhatIf    # simulate the command withour running
+-Confirm:$false    # supress confirmation prompt
+-Force    # override restriction
+-ErrorAction Stop    # treat errors as execptions
+-Filter    # server-side filtering
+-Recurse    # recursive ops  
