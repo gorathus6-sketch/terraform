@@ -28,14 +28,23 @@ Get-Process -Name
 Get-Process -Id
 Get-Process -Force
 Get-Process -PassThru
+
 Stop-Process
 Stop-Process -Name
 Stop-Process -Id
 Stop-Process -Force
 Stop-Process -PassThru
+
 Start-Process
+Start-Process -Name
+Start-Process -Id
+Start-Process -Force
+Start-Process -PassThru
 
 Get-Service
+Get-Service -Name
+Get-Service -DisplayName
+Get-Service -Status
 
 Get-EventLog
 Get-WinEvent
