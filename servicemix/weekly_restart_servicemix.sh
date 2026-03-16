@@ -1,4 +1,4 @@
-#!/bin/besh
+#!/bin/bash
 set -euo pipefail
 
 SMX_HOME="/opt/vulnerability_matching/apache_servicemix_6.12"
