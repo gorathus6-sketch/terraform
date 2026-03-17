@@ -35,14 +35,14 @@ def get_swap_sequence(source, target):
             temp_source[i], temp_source[target_idx] = temp_source[target_idx], temp_source[i]
             return swaps
 
-def solve_tsp_pso(dist_matrix, num_particles=20, iternations=100, w=0.7, c1=0.5, c2=0.5):
+def solve_tsp_pso(dist_matrix, num_particles=20, iterations=100, w=0.7, c1=0.5, c2=0.5):
     num_cities = len(dist_matrix)
     cities = list(range(num_cities))
 
     # Initialize Swarm
     swarm = []
     for _ in range(num_particles):
-        randome_route = random.sample(cities, num_cities)
+        random_route = random.sample(cities, num_cities)
         swarm.append(Particle(random_route, dist_matrix))
 
         gbest_particle = min(swarm, key=lambda p: p.fitness)
@@ -79,5 +79,4 @@ if __name__ == "__main__":
     best_path, best_dist = solve_tsp_pso(dist_mat)
     print(f"Best Route: {best_path}")
     print(f"Distance: {best_dist:.2f}")
-            
     
