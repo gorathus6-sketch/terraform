@@ -17,3 +17,6 @@ $drift = Compare-Object -ReferenceObject $expected -DifferenceObject $actual -Pr
 
 $timestamp = (Get-Date).ToString("yyyy-MM-dd_HH-mm_ss")
 $drift | Export-Csv "drift_report_$timestamp.csv" -NoTypeInformation
+
+# this detects when actual Azure resources differ
+# from expected config (IaC drift)
