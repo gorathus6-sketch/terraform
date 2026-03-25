@@ -32,3 +32,9 @@ int execute_command(char **tokens) {
 
     return 0;
 }
+
+// fork() creates child
+// child calls execvp() to run command
+// parent waits for child to finish
+// errors are handled cleanly
+// this is what comprises a UNIX shell
