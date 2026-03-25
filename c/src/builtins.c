@@ -19,7 +19,7 @@ int run_builtin(char **tokens) {
             fprintf(stderr, "cd: missing argument\n");
             return -1;
         }
-        if (chdir(tokens[1])) != 0) {
+        if (chdir(tokens[1]) != 0) {
             perror("cd");
         }
         return 0;
@@ -28,23 +28,25 @@ int run_builtin(char **tokens) {
     if (strcmp(tokens[0], "exit") == 0) {
         exit(0);
     }
-}
 
-if (strcmp(tokens[0], "help") == 0) {
-    printf("emsh built-in commands:\n");
-    printf("  cd <dir>  Change directory\n");
-    printf("  pwd       Print working directory\n");
-    printf("  help      Show this help message\n");
-    printf("  exit      Exit the shell\n");
-    return 0;
-}
-
-if (strcmp(tokens[0], "pwd") == 0) {
-    char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("%s\n", cwd);
-    } else {
-        perror("pwd");
+    if (strcmp(tokens[0], "help") == 0) {
+        printf("emsh built-in commands:\n");
+        printf("  cd <dir>  Change directory\n");
+        printf("  pwd       Print working directory\n");
+        printf("  help      Show this help message\n");
+        printf("  exit      Exit the shell\n");
+        return 0;
     }
-    return 0;
+
+    if (strcmp(tokens[0], "pwd") == 0) {
+        char cwd[1024];
+        if (getcwd(cwd, sizeof(cwd)) != NULL) {
+            printf("%s\n", cwd);
+        } else {
+            perror("pwd");
+        }
+        return 0;
+    }
+
+    return -1; // should never reach this
 }
