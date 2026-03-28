@@ -1,7 +1,7 @@
-<p><center><b><font size = 16></b>My Name</b></font>
+<p><<div align="center">><b><font size = 16></b>My Name</b></font>
 <br>My City • My Phone • My email
 <br></b>GitHub: My GitHub URL
-<br>LinkedIn: My LinkedIn Profile URL</center></p>
+<br>LinkedIn: My LinkedIn Profile URL</center></div>
 
 <p><b>Summary</b>
 <br>Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
