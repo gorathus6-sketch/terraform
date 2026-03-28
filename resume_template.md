@@ -1,17 +1,17 @@
-<center><b><font size = 16></b>My Name</b></font>
-My City • My Phone • My email
-GitHub: My GitHub URL
-LinkedIn: My LinkedIn Profile URL</center>
+<p><center><b><font size = 16></b>My Name</b></font>
+<br>My City • My Phone • My email
+<br></b>GitHub: My GitHub URL
+<br>LinkedIn: My LinkedIn Profile URL</center></p>
 
-<b>Summary</b>
-Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
+<p><b>Summary</b>
+<br>Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
 
-<b>Professional Experience</b>
-<b>Production Engineer / Cloud Operations Engineer</b>
-Company 1 — City, State
-Oct 2022 – Jan 2026
-    • Managed AWS infrastructure powering mission‑critical FinTech and TLM reconciliation pipelines, strengthening availability, security posture, end‑to‑end processing integrity, exceeding 99.9% SLA targets.
-    • Optimized mission‑critical financial transaction pipelines using ServiceMix and ActiveMQ.
+<p><b>Professional Experience</b>
+<br><b>Production Engineer / Cloud Operations Engineer</b>
+<br>Company 1 — City, State
+<br>Oct 2022 – Jan 2026
+    <br>• Managed AWS infrastructure powering mission‑critical FinTech and TLM reconciliation pipelines, strengthening availability, security posture, end‑to‑end processing integrity, exceeding 99.9% SLA targets.
+    <br>• Optimized mission‑critical financial transaction pipelines using ServiceMix and ActiveMQ.
     • Automated weekly production restarts via Semaphore and Crontab scheduling. 
     • Administered WildFly application servers and Linux environments for client‑facing applications. 
     • Implemented automated batch workflows using Airflow and Control‑M to stabilize legacy systems. 
