@@ -1,4 +1,4 @@
-<p><<div align="center"><b><font size = 16></b>My Name</b></font>
+<p><div align="center"><b><font size = 16></b>My Name</b></font>
 <br>My City • My Phone • My email
 <br></b>GitHub: My GitHub URL
 <br>LinkedIn: My LinkedIn Profile URL</center></div>
