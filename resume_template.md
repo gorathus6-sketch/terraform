@@ -7,7 +7,7 @@
 <br>Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
 
 <p><b>Professional Experience</b>
-<p><br><b>Production Engineer / Cloud Operations Engineer</b>
+<p><b>Production Engineer / Cloud Operations Engineer</b>
 <br>Company 1 — City, State
 <br>Oct 2022 – Jan 2026
     <br>• Managed AWS infrastructure powering mission‑critical FinTech and TLM reconciliation pipelines, strengthening availability, security posture, end‑to‑end processing integrity, exceeding 99.9% SLA targets.
@@ -21,7 +21,7 @@
     <br>• Developed technical templates for secure file transmissions and SLA‑bound reporting workflows, ensuring idempotent execution and significantly improving operational efficiency.
     <br>• Composed Oracle scripts for checking application status and inserting client static data.
     <br>• Provisioned user accounts and permissions for applications and Active Directory.</p>
-<p></b><br><b>System Support Analyst II / System Operations Analyst Senior</b>
+<p></b><b>System Support Analyst II / System Operations Analyst Senior</b>
 <br>Company 2 – City, State
 <br>Feb 2007 – Sep 2022
     <br>• Managed global web application failovers using Akamai and Resolve. 
