@@ -7,7 +7,7 @@
 <br>Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
 
 <p><b>Professional Experience</b>
-<br><b>Production Engineer / Cloud Operations Engineer</b>
+<p><br><b>Production Engineer / Cloud Operations Engineer</b>
 <br>Company 1 — City, State
 <br>Oct 2022 – Jan 2026
     <br>• Managed AWS infrastructure powering mission‑critical FinTech and TLM reconciliation pipelines, strengthening availability, security posture, end‑to‑end processing integrity, exceeding 99.9% SLA targets.
@@ -20,8 +20,8 @@
     <br>• Created runbooks and mentored junior engineers on Linux, application hosting, and troubleshooting, increasing operational synergy by 20%.
     <br>• Developed technical templates for secure file transmissions and SLA‑bound reporting workflows, ensuring idempotent execution and significantly improving operational efficiency.
     <br>• Composed Oracle scripts for checking application status and inserting client static data.
-    <br>• Provisioned user accounts and permissions for applications and Active Directory.
-<br><b>System Support Analyst II / System Operations Analyst Senior</b>
+    <br>• Provisioned user accounts and permissions for applications and Active Directory.</p>
+<p></b><br><b>System Support Analyst II / System Operations Analyst Senior</b>
 <br>Company 2 – City, State
 <br>Feb 2007 – Sep 2022
     <br>• Managed global web application failovers using Akamai and Resolve. 
@@ -33,7 +33,7 @@
     <br>• Served as escalation point for OpenShift, SQL, and Oracle teams, ensuring production stability. 
     <br>• Monitored resource thresholds and ACH transactions, proactively resolved issues to maintain SLA compliance. 
     <br>• Executed disaster recovery exercises and ensured compliance with financial industry availability standards.
-    <br>• Provisioned Just-In-Time access for temporary users requiring Psoft or Fortran functions. 
+    <br>• Provisioned Just-In-Time access for temporary users requiring Psoft or Fortran functions.</p>
 
 <p><b>Computer Support (Internship)</b>
 <br>Company 3 — City, State
