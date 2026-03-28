@@ -1,3 +1,3 @@
 output "id" {
-    values = azurerm_network_security_group.this.id
+    value = azurerm_network_security_group.this.id
 }
