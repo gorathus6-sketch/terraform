@@ -4,7 +4,7 @@
 <br>LinkedIn: My LinkedIn Profile URL</center></div>
 
 <p><b>Summary</b>
-<br>Production and Cloud Operations Engineer with two decades experience supporting high‑availability FinTech systems across Azure, AWS, and on-premises Linux, UNIX, and Windows environments. Hands‑on with batch automation, role-based access control, secure file transfers, stabilizing mission‑critical applications, and incident response. Currently modernizing operations expertise through Hashicorp Terraform Associate to align with Cloud Operations and SecOps best practices.
+<br>Cloud & Production Operations Engineer with extensive experience supporting high‑availability FinTech systems across Azure, AWS, and hybrid Linux/UNIX/Windows environments. Hands‑on with batch automation, RBAC, secure file transfers, incident response, and stabilizing mission‑critical applications under pressure. Actively modernizing cloud operations skill sets through the HashiCorp Terraform Associate certification to align with CloudOps and SecOps best practices
 
 <p><b>Professional Experience</b>
 <p><b>Production Engineer / Cloud Operations Engineer</b>
