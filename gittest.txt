@@ -1,0 +1,31 @@
+git clone main/change
+git status
+git checkout -b feature/my-change
+git checkout main
+git checkout feature/my-change
+git add .
+git commit -m "Add logging to the API"
+git push -u origin feature/my-change
+git pull
+git checkout feature/my-change
+git pull origin main
+git checkout main
+git pull
+git log --online --graph
+git branch release
+
+# switch to the target branch
+git checkout main
+
+# merge the feature branch into main
+git merge feature-branch
+
+# Versioning
+git checkout release
+git pull
+git checkout uat
+git pull
+git merge release
+nano version.sh
+git add version.sh
+git commit -m "resolve merge conflict, merge release into uat"
