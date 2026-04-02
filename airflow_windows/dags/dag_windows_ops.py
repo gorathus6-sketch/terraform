@@ -1,6 +1,6 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
-from datetime import datetime
+from datetime import datetime, timedelta
 
 #
 #
@@ -21,11 +21,10 @@ with DAG(
     dag_id="windows_ops_automation",
     description="Windows-optimized Airflow DAG orchestrating PowerShell scripts",
     start_date=datetime(2024, 1, 1),
-    schedule_interval="0 16 * * 5", # Fridays at 16:00
+    schedule="0 16 * * 5", # Fridays at 16:00
 
     catchup=False,
     default_args=default_args,
-    sla=timedelta(minutes=30),
 ) as dag:
     
     #
