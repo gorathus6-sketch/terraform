@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.bash import BashOperator
+from airflow.providers.standard.operators.bash import BashOperator
 from datetime import datetime, timedelta
 
 #
@@ -36,8 +36,8 @@ with DAG(
     disk_check = BashOperator(
         task_id="disk_health_check",
         bash_command=(
-            'powershell.exe -NoProfile -ExecutionPolicy Bypass '
-            '-File "C:\\airflow\\dags\\windows_ops\\check_disk.ps1" '
+            'pwsh -NoProfile -ExecutionPolicy Bypass '
+            '-File "/opt/airflow/dags/windows_ops/check_disk.ps1" '
             '-Threshold 80'
         )
     )
@@ -51,8 +51,8 @@ with DAG(
     restart_service = BashOperator(
       task_id="restart_service",
       bash_command=(
-        'powershell.exe -NoProfile -ExecutionPolicy Bypass '
-        '-File "C:\\airflow\\dags\\windows_ops\\restart_service.ps1" '
+        'pwsh -NoProfile -ExecutionPolicy Bypass '
+        '-File "/opt/airflow/dags/windows_ops/restart_service.ps1" '
         '-ServiceName "Spooler"'
       )
     )
@@ -66,8 +66,8 @@ with DAG(
     system_health = BashOperator(
         task_id="system_health_check",
         bash_command=(
-            'powershell.exe -NoProfile -ExexcutePolicy Bypass '
-            '-File "C:\\airflow\\dags\\windows_ops\\system_health_check.ps1"'
+            'pwsh -NoProfile -ExexcutePolicy Bypass '
+            '-File "/opt/airflow/dags/windows_ops/system_health_check.ps1"'
         )
     )
 
