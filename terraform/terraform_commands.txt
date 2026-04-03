@@ -1,0 +1,18 @@
+#
+# terraform_init
+# 
+
+terraform init -upgrade    # update previously opted modules and plugins to the newest approved version per your config
+
+terraform init -reconfigure    # disregard existing backend config and force a fresh init. Do this to switch backend and not migrate the existing state
+
+terraform init -migrate-state    # this is to provide backend settings dynamically from external file or via key/value pairs (eg. ' backend-config="my-config-item" '). This is a best practice to avoid revealing sensitive user credentials in main code.
+
+terraform init -input=false    # Disabled interactive prompts, mandatory for CI/CD deployments where no person is able to answer 'yes'.
+
+terraform init -backend=false    # skips backend init. Can use with 'terraform validate' to check code syntax without requiring access to remote state
+
+terraform init -get=false    # skips the automatic downloads of TF modules
+
+terraform init -plugin-dir=path    # terraform force loads plugins from a specified local di rather than downloading from the web
+
