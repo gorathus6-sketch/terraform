@@ -1,5 +1,5 @@
 #
-# terraform_init
+# terraform init
 # 
 
 terraform init -upgrade    # update previously opted modules and plugins to the newest approved version per your config
@@ -16,3 +16,68 @@ terraform init -get=false    # skips the automatic downloads of TF modules
 
 terraform init -plugin-dir=path    # terraform force loads plugins from a specified local di rather than downloading from the web
 
+
+#
+# terraform plan
+#
+
+
+#
+# terraform apply
+#
+
+terraform apply -auto-approve    # skip interactive prompt for approval, terraform immediately performs the planned actions
+
+terraform apply -compact-warnings    # show warning messages in a paraphrased form unless in tandem with errors
+
+terraform apply -input=false    # disable interactive prompt for variables. If a mandatory variable is missing the command will fail
+
+terrform apply -json   # output the operation's progress in JSON format, which implies -input=false
+
+terraform apply -lock=false    # disable lock state, ill advised as it leads to state corruption if multiple users run commands concurrently
+
+terraform apply -lock-timeout=<duration>    # instructs Terraform to wait for a given time, eg. 10m to acquire state lock before failure
+
+terraform apply -no-color    # disable terminal color codes in ouput, handy for CI/CD logs
+
+terraform apply -parallelism=n    # limits number of concurrent operations (default of 10), which may help avoid API rate limits from the cloud provider
+
+
+#
+# terraform validate
+#
+
+
+#
+# terraform fmt
+# 
+
+
+#
+# terraform output
+#
+
+
+#
+# terraform import
+#
+
+
+#
+# terrform refresh
+#
+
+
+#
+# terraform state
+#
+
+
+#
+# terraform taint
+#
+
+
+#
+# terraform destroy
+#
