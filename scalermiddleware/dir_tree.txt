@@ -1,0 +1,73 @@
+scalermiddleware/
+│
+├── src/
+│   ├── core/
+│   │   ├── dllmain.cpp
+│   │   ├── hooks.cpp
+│   │   ├── hooks.h
+│   │   ├── detours.cpp
+│   │   ├── detours.h
+│   │   ├── logging.cpp
+│   │   ├── logging.h
+│   │   └── config.cpp
+│   │
+│   ├── graphics/
+│   │   ├── dx11_hook.cpp
+│   │   ├── dx11_hook.h
+│   │   ├── dx12_hook.cpp
+│   │   ├── dx12_hook.h
+│   │   ├── vulkan_hook.cpp
+│   │   ├── vulkan_hook.h
+│   │   ├── texture_utils.cpp
+│   │   └── texture_utils.h
+│   │
+│   ├── scalers/
+│   │   ├── fsr1.cpp
+│   │   ├── fsr1.h
+│   │   ├── fsr2.cpp
+│   │   ├── fsr2.h
+│   │   ├── fsr3.cpp
+│   │   ├── fsr3.h
+│   │   ├── fsr4.cpp
+│   │   ├── fsr4.h
+│   │   ├── xess.cpp
+│   │   ├── xess.h
+│   │   └── scaler_manager.cpp
+│   │       scaler_manager.h
+│   │
+│   ├── ipc/
+│   │   ├── ipc_server.cpp
+│   │   ├── ipc_server.h
+│   │   ├── http_server.cpp
+│   │   ├── http_server.h
+│   │   └── commands.h
+│   │
+│   └── utils/
+│       ├── win32_utils.cpp
+│       ├── win32_utils.h
+│       ├── shader_loader.cpp
+│       ├── shader_loader.h
+│       └── timer.h
+│
+├── shaders/
+│   ├── fsr1_cs.hlsl
+│   ├── fsr2_cs.hlsl
+│   ├── fsr3_cs.hlsl
+│   ├── fsr4_cs.hlsl
+│   ├── xess_cs.hlsl
+│   └── common.hlsl
+│
+├── include/
+│   ├── amd_fsr/
+│   ├── intel_xess/
+│   └── vendor_headers/
+│
+├── build/
+│   ├── x64/
+│   └── x86/
+│
+├── tools/
+│   ├── injector.exe
+│   └── config_editor.exe
+│
+└── ScalerMiddleware.sln
