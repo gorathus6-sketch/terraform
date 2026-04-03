@@ -1,1 +1,176 @@
+# High Level Diagram (C++ class middleware architecture) 
 
++-------------------------------------------------------------+
+|                     ScalerMiddleware.dll                    |
++-------------------------------------------------------------+
+|  + DllMain                                                 |
+|  + HookManager                                             |
+|  + GraphicsBackend (DX11, DX12, Vulkan)                    |
+|  + ScalerManager                                           |
+|  + IPCServer (HTTP/gRPC/NamedPipe)                         |
+|  + ConfigManager                                           |
+|  + Logger                                                  |
++-------------------------------------------------------------+
+
+
+
+# core layer (DLL + hooks)
+
++-------------------+
+|   DllMain         |
++-------------------+
+| + Initialize()    |
+| + Shutdown()      |
++-------------------+
+          |
+          v
++-------------------+
+|   HookManager     |
++-------------------+
+| + InstallHooks()  |
+| + RemoveHooks()   |
+| + SetBackend()    |
++-------------------+
+          |
+          v
++---------------------------+
+|   GraphicsBackend (IF)    |<------------------------------+
++---------------------------+                               |
+| + OnPresent()             |                               |
+| + GetBackbuffer()         |                               |
+| + SubmitUpscaledFrame()   |                               |
++---------------------------+                               |
+          ^                                                |
+          |                                                |
++-------------------+      +-------------------+           |
+| DX11Backend       |      | DX12Backend       |           |
++-------------------+      +-------------------+           |
+| + PresentHook()   |      | + ExecuteHook()   |           |
+| + ResizeHook()    |      | + PresentHook()   |           |
++-------------------+      +-------------------+           |
+          ^                                                |
+          |                                                |
++-------------------+                                     |
+| VulkanBackend     |                                     |
++-------------------+                                     |
+| + QueuePresent()  |                                     |
++-------------------+                                     |
+
+
+
+# scaler layer (provides FSR, XeSS, custom scalers, ETC)
+
++---------------------------+
+|     ScalerManager         |
++---------------------------+
+| + SetScaler(type)         |
+| + ApplyScaler(frame)      |
+| + GetAvailableScalers()   |
++---------------------------+
+          |
+          +---------------------------+
+          |                           |
+          v                           v
++-------------------+       +-------------------+
+|   IScaler (IF)    |       |   FSR2Scaler      |
++-------------------+       +-------------------+
+| + Init()          |       | + Dispatch()      |
+| + Dispatch()      |       | + LoadShaders()   |
+| + Shutdown()      |       +-------------------+
++-------------------+
+          |
+          +---------------------------+
+          |                           |
+          v                           v
++-------------------+       +-------------------+
+|   FSR1Scaler      |       |   FSR3Scaler      |
++-------------------+       +-------------------+
+| + Dispatch()      |       | + Dispatch()      |
++-------------------+       +-------------------+
+          |
+          +---------------------------+
+          |
+          v
++-------------------+
+|   XeSSScaler      |
++-------------------+
+| + Dispatch()      |
+| + InitXeSS()      |
++-------------------+
+
+# IPC / Control Layer (Cloud Control Plane)
++---------------------------+
+|        IPCServer          |
++---------------------------+
+| + Start()                 |
+| + Stop()                  |
+| + OnCommandReceived()     |
++---------------------------+
+          |
+          v
++---------------------------+
+|       CommandParser       |
++---------------------------+
+| + ParseJSON()             |
+| + Validate()              |
++---------------------------+
+          |
+          v
++---------------------------+
+|     ScalerManager         |
++---------------------------+
+ 
+# This is how your cloud platform (or user UI) tells the middleware:
+# - “Switch to FSR1 Quality”
+# - “Switch to XeSS Performance”
+# - “Reload shaders”
+# - “Dump metrics”
+
+
+
+# Utility Layer
++-------------------+
+|   Logger          |
++-------------------+
+| + Info()          |
+| + Warn()          |
+| + Error()         |
++-------------------+
+
++-------------------+
+| ConfigManager     |
++-------------------+
+| + LoadConfig()    |
+| + SaveConfig()    |
+| + GetValue()      |
++-------------------+
+
++-------------------+
+| ShaderLoader      |
++-------------------+
+| + LoadHLSL()      |
+| + CompileCS()     |
++-------------------+
+
+
+
+# Full System Flow (How Everything Connects)
+Game.exe
+   |
+   |  (DLL injection)
+   v
+ScalerMiddleware.dll
+   |
+   |-- DllMain → HookManager → GraphicsBackend
+   |
+   |-- GraphicsBackend intercepts Present()
+   |
+   |-- ScalerManager.Dispatch() applies FSR/XeSS
+   |
+   |-- GraphicsBackend.SubmitUpscaledFrame()
+   |
+   |-- Frame goes to encoder → stream to user
+   |
+   |-- IPCServer listens for scaler changes
+
+# This is how the graphics middleware stack behaves
