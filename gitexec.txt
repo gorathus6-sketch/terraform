@@ -6,7 +6,7 @@ git checkout -b feature/logging-fix
 
 git add .
 git commit -m "fix log format for audit compliance"
-git push -u origin feature/loggin-fix
+git push -u origin feature/logging-fix
 
 # update a branch with main
 
@@ -44,7 +44,7 @@ git diff main..feature/logging-fix
 git fetch
 git rebase origin/main
 
-# squash commits (turn 10 sporatic commits into a single organized one):
+# squash commits (turn 10 sporadic commits into a single organized one):
 
 git rebase -i HEAD-10
 
@@ -52,5 +52,5 @@ git rebase -i HEAD-10
 
 git bisect start
 git bisect bad
-git bisect good <commit_tag>    # eg. note the bisect result is good
+git bisect good <commit_tag>    # eg. note git bisect result is good v1.0
 
