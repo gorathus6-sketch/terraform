@@ -1,0 +1,56 @@
+# create branch
+
+git checkout -b feature/logging-fix
+
+# make a change, commit, push
+
+git add .
+git commit -m "fix log format for audit compliance"
+git push -u origin feature/loggin-fix
+
+# update a branch with main
+
+git pull origin main
+git merge main
+
+# clean up after merge
+
+git checkout main
+git pull
+git branch -d feature/logging-fix
+
+# scenario: 2 devs changed the same file, fix the conflict
+
+get merge main
+
+# resolve conflict > commit > push
+
+# to undo a commit performed in error:
+
+git reset --soft HEAD-1
+
+# this will undo the previous commit AND discard changes:
+
+git reset --hard HEAD-1
+
+# scenario 3: need to compare 2 branches before pull request:
+
+git diff main..feature/logging-fix
+
+# this is how to review work before anyone else sees it
+
+# Rebase to clean history before P.R.:
+
+git fetch
+git rebase origin/main
+
+# squash commits (turn 10 sporatic commits into a single organized one):
+
+git rebase -i HEAD-10
+
+# Bisect, used to find which commit broke prod
+
+git bisect start
+git bisect bad
+git bisect good <commit>
+
