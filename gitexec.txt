@@ -21,7 +21,7 @@ git branch -d feature/logging-fix
 
 # scenario: 2 devs changed the same file, fix the conflict
 
-get merge main
+git merge main
 
 # resolve conflict > commit > push
 
