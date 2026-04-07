@@ -52,5 +52,4 @@ git rebase -i HEAD-10
 
 git bisect start
 git bisect bad
-git bisect good <commit_tag>    # eg. note git bisect result is good v1.0
-
+git bisect good <tag>    # eg. note "git bisect good v1.0"
