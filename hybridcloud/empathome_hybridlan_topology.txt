@@ -1,0 +1,42 @@
+                           ┌──────────────────────────────┐
+                           │          Azure Cloud          │
+                           │  Entra ID • Storage • VMs     │
+                           └───────────────┬──────────────┘
+                                           │
+                                   Site-to-Site VPN
+                                           │
+                           ┌───────────────┴──────────────┐
+                           │     Firewall / Router         │
+                           │ (Fortinet / Cisco / Palo Alto │
+                           │   or Ubiquiti UDM-SE)         │
+                           └───────────────┬──────────────┘
+                                           │
+                                VLAN Trunk (802.1Q)
+                                           │
+                           ┌───────────────┴──────────────┐
+                           │         Core Switch            │
+                           │   (24–48 ports, L2 managed)   │
+                           └───────────────┬──────────────┘
+       ┌───────────────────────────────────┼────────────────────────────────────┐
+       │                                   │                                    │
+       │                                   │                                    │
+┌──────┴───────┐                   ┌───────┴────────┐                   ┌───────┴────────┐
+│ VLAN 10       │                   │ VLAN 20         │                   │ VLAN 30         │
+│ Server Room   │                   │ Workstations    │                   │ Printers        │
+│ (Trusted)     │                   │ (Untrusted)     │                   │ (Isolated)      │
+└──────┬────────┘                   └────────┬────────┘                   └────────┬────────┘
+       │                                     │                                   │
+       │                                     │                                   │
+┌──────┴──────────┐        ┌────────────────┴────────────────┐       ┌──────────┴──────────┐
+│ NAS (SMB/NFS)    │        │ 20× Windows PCs (Local Accounts)│       │ Printer 1 (Static IP)│
+│ Snapshots/Backup │        │ Gaming + Education Workloads     │       │ Printer 2 (Static IP)│
+└──────────────────┘        └──────────────────────────────────┘       └──────────────────────┘
+
+       │
+       │
+┌──────┴──────────┐
+│ AI Workstation   │
+│ Linux + CUDA     │
+│ RTX 5090         │
+│ NFS/SMB to NAS   │
+└──────────────────┘
