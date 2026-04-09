@@ -16,6 +16,15 @@ interface GigabitEthernet0 1
  ip address 192.168.2.1 255.255.255.252
  no shutdown
 
+#
+# Use a CIDR of /31 rather than CIDR of /30 used above:
+#
+
+interface GigabitEthernet0/1
+ description CONNECT_TO_DMZ_ROUTER
+ ip address 192.168.2.0 255.255.255.254
+ no shutdown
+
 router ospf 1
  network 192.168.1.0 0.0.0.255 area 0
  network 192.168.2.0 0.0.0.3 area 3
