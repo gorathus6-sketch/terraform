@@ -1,0 +1,135 @@
+#
+# PROD SUPPORT ESSENTIALS
+#
+
+#
+# UNIX/LINUX
+#
+
+# grep for patterns
+grep -i <string or pattern value> <filename>    # can be partial filename using * as a wildcard such as *.rpt or *OCT*
+
+# trailers and headers
+tail -f    # to see an active log or actively written file increment in real time
+tail -<number>    # Shows the speficied number of rows towards EOF, defaults to -10
+head -<number>    # shows the specified number of rows towards BOF, defaults to -10
+
+
+# awk
+awk '{print $x}' <filename>    # x denotes the column number of the target file
+awk '/error/' <filename>    # this will print lines which contain strings matching the pattern "error" 
+
+awk '{sum += $x} END {print sum}' <filename>    # sum values in a column, denoted by $x
+
+# e.g.
+awk '{sum += $1} END {print sum}' test_csv.csv
+12
+
+# Use a colon as a separator
+# (e.g., for /etc/passwd):
+awk -F: '{print $1}' /etc/passwd
+# returns list of accounts, user or system owned
+
+
+# tee command
+<command> | sudo tee -a <output_file>    # duplicates output of command to a file in real time
+
+# diff
+diff -y <filename1> <filename2>    # compares files side by side
+# exit status: 0 = files are identical, 1 = differences in the files, 2 = errors encountered
+
+# word count
+wc -l    # counts number of records, important if an ACH or statement file has an expected number of records, but records are missing
+
+
+#
+# SQL
+#
+
+# -- check for table space alerts
+
+WITH TARGET_TABLES AS (
+    SELECT 'BANK' AS TBL_NAME FROM DUAL
+    UNION ALL
+    SELECT 'MESSAGE_FEED' FROM DUAL
+    UNION ALL
+    SELECT 'USER' FROM DUAL
+    UNION ALL
+    SELECT 'SHORT_CODE' FROM DUAL
+)
+SELECT
+    T.TBL_NAME,
+    A.ALERT_TYPE,
+    A.ALERT_DATE,
+    A.SEVERITY,
+    TS.TABLESPACE_NAME,
+FROM TARGET_TABLES T
+LEFT JOIN ALERTS A
+    ON T.TBL_NAME = A.OBJECT_NAME
+LEFT JOIN USER_TABLESPACES TS
+    ON TS.TABLESPACE_NAME = (
+        SELECT TABLESPACE_NAME
+        FROM USER_TABLES
+        WHERE TABLE_NAME = T.TBL_NAME
+    )
+ORDER BY A.ALERT_DATE DESC;
+
+
+# -- checking for data base locks
+
+SELECT
+    lo.session_id,
+    s.serial#,
+    s.username,
+    s.osuser,
+    s.machine,
+    o.object_name,
+    lo.locked_mode
+FROM v$locked_object lo
+JOIN dba_objects o ON lo.object_id = o.object_id
+JOIN v$session s ON lo.session_id = s.sid
+WHERE o.object_name = 'BANK'
+
+
+# -- inserting client static data
+
+INSERT ALL
+  INTO bank (client_id, bank_name, aba_number, address, city, state, zip_code, phone_number)
+    VALUES (001, 'Bank 1', '123456789', '1 Main St', 'New York', 'NY', '10000', '2125550001')
+  INTO bank (client_id, bank_name, aba_number, address, city, state, zip_code, phone_number)
+    VALUES (002, 'Bank 2', '987654321', '10 Main St', 'New York', 'NY', '10000', '2125550010')
+SELECT * FROM dual;
+
+COMMIT;
+
+
+# -- check for long running queries / sessions
+
+SET PAGESIZE 0
+SET LINESIZE 200
+SET FEEDBACK OFF
+SET HEADING OFF
+SET VERIFY OFF
+SET ECHO OFF
+SET TERMOUT OFF
+
+-- Threshold in seconds (modify as needed)
+DEFINE THRESHOLD = 300;
+
+-- Query for long-running active sessions
+SELECT 'LONG_RUNNING: SID=' || s.sid ||
+       ' SERIAL=' || s.serial# ||
+       ' USER=' || s.username ||
+       ' SQL_ID=' || s.sql_id ||
+       ' SECONDS=' || s.last_call_et
+FROM v$session s
+WHERE s.status = 'ACTIVE'
+  AND s.username IS NOT NULL
+  AND s.last_call_et > &THRESHOLD;
+
+
+# -- check application status
+select * from cluster_info;    -- this will check if the applications are up and active, i.e. reported uptime will refresh if active
+
+# -- check system time
+select sysdate from dual;
