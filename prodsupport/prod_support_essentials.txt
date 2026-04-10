@@ -16,6 +16,17 @@ tail -f <filename>    # to see an active log or actively written file increment 
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
+# changing ownership and permissions
+
+chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group, third octet (--X) symbolizes user not associated with either of those, or "others"
+
+chown <user>:<group> <filename>    # assigns a user and associated group to the file
+
+# finding files
+
+find <directory> -name <filename>    # E.g. find /ach -name ach_mmddyyyy.ach
+# also do find /ach -iname ach_mmddyyyy.ach 2> /dev/null to make the search non-case sensitive, and not return error messages
+
 
 # awk
 awk '{print $x}' <filename>    # x denotes the column number of the target file
