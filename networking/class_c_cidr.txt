@@ -24,4 +24,6 @@ When it comes to leasable IPs, 2 are reserved for the network/broadcast.
 
 /31 = no leasable IPs, this only works for a direct connection between two gateway devices
 
-Subnetting / CIDR is messy. The one thing I did truly enjoy from networking classes is getting to aux into a Cisco routers and configure via the terminal. Just for that fact alone, even though I've never intended to work as a network engineer, I probably should have gotten a CCNA when I was still in school just because some cloud services (like AWS VPC) are heavily reliant on networking best practices.
+Subnetting / CIDR is messy. The one thing I did truly enjoy from networking classes is getting to aux into a Cisco routers and configure via the terminal. Just for that fact alone, even though I've never intended to work as
+
+a network engineer, I probably should have gotten a CCNA when I was still in school just because some cloud services (like AWS VPC) are heavily reliant on networking best practices.
