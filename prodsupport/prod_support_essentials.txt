@@ -1,5 +1,7 @@
 #
-# PROD SUPPORT ESSENTIALS
+# PRODUCTION SUPPORT ESSENTIALS
+# By Trevor Flickinger
+# April, 2026
 #
 
 #
