@@ -168,6 +168,15 @@ WHERE s.status = 'ACTIVE'
   AND s.last_call_et > &THRESHOLD;
 
 
+# -- check if a file has been ingestion (from say Servicemix)
+
+select * from files where filename like '%ach%';
+
+# -- To help search for more recent files you can either:
+
+select * from files where filename like '%ach%' order by started desc;
+select * from files where filename like '%ach_mmddyyyy%'
+
 # -- check application status
 select * from cluster_info;    -- this will check if the applications are up and active, i.e. reported uptime will refresh if active
 
