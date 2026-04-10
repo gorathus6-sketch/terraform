@@ -258,11 +258,9 @@ condition: success(parent_job_name)
 # FW, file watcher, checks for file required for command job to run and ingest the file
 
 # Check status of a batch job
-
 autorep -j <jobname>
 
 # autosys events
-
 FORCE_STARTJOB    # forces a job to run regardless if condition is met or not
 JOB_ON_HOLD    # suspends a job, and this will suspend all dependencies as well
 JOB_OFF_HOLD    # releases a job from suspension
@@ -273,3 +271,10 @@ CHANGE_STATUS    # manually override job status to success or failure
 # Alerts
 CHASE    # indicates that the scheduler cannot verify the status of a running or starting job via the remote agen
 MAX_RUN_ALARM    # indicates job has run past it's expected run time
+
+
+# Job Conditions
+s(parent_job)    # success
+f(parent_job)    # failure
+d(parent_job)    # done
+n(parent_job)    # not running
