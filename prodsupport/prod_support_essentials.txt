@@ -173,3 +173,11 @@ select * from cluster_info;    -- this will check if the applications are up and
 
 # -- check system time
 select sysdate from dual;
+
+
+# -- JOIN CONCEPTS
+# -- Inner Join: return records which have matching values in both tables
+# -- Left Join: returns records from the left table and matched records from right table 
+# -- Cross Join: Returns the cartesian product of 2 tables
+#
+
