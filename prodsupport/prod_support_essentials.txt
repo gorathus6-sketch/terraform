@@ -55,6 +55,33 @@ diff -y <filename1> <filename2>    # compares files side by side
 wc -l    # counts number of records, important if an ACH or statement file has an expected number of records, but records are missing
 
 
+# System health
+
+# processes
+
+top
+htop    # this will list processes in terms of CPU time first, memory second
+
+free -m     # this will show you free (and available) RAM in MB, as well as SWAP space memory
+
+ps -ef    # this will return the list of PIDs (processes taking CPU time)
+
+# if there is a zombie process (or if a process is no longer required to run:
+kill -9 <pid>
+
+
+# disk space
+
+df -h    # shows free space in available file systems
+
+du -sh    # shows how much space files/folders are taking in any given directory
+
+# Compress older/archived files to save space
+
+find /path/to/directory -type f -mtime +7 -exec gzip {} +
+find . -type f -mtime +7 -exec gzip {} +    # this will compress files at least 7 days old
+
+
 #
 # SQL
 #
