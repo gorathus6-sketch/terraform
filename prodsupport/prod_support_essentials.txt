@@ -103,6 +103,15 @@ vmstat 1
 iotop
 
 
+# diagnose network issues
+
+ss -tulpn
+netstat -anp
+lsof -i :<port>
+curl -v
+dig/nslookup
+
+
 #
 # SQL
 #
