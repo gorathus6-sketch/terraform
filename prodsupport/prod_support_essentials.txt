@@ -19,6 +19,9 @@ tail -f <logfile> | grep --line-buffered ERROR    # real time error capture
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
+# note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the intended business day (in the header) and files such as ACH or other transactions files should contain both the transaction amount and record amount (in the trailer).
+
+
 # changing ownership and permissions
 
 chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group, third octet (--X) symbolizes user not associated with either of those, or "others"
