@@ -237,7 +237,31 @@ select sysdate from dual;
 # -- Inner Join: return records which have matching values in both tables
 # -- Left Join: returns records from the left table and matched records from right table 
 # -- Cross Join: Returns the cartesian product of 2 tables
-#
+
+# -- Transaction isolation levels
+# -- Read Committed
+# -- Repeatable Read
+# -- Serializable
+# -- why dirty reads fail
+
+# -- Indexing
+# -- Btree vs bitmap
+# -- when to add an index
+# -- how to detect missing indexes (slow table scans)
+
+# -- Explain Plans
+# -- EXPLAIN PLAN FOR <query>
+# -- How to read cost, cardinality, access path
+
+# -- Deadlock vs lock wait
+# -- how to identify
+# -- how to resolve safely
+
+# -- Data Integrity
+# -- primary keys
+# -- foreign keys
+# -- unique contraints
+# -- check constraints
 
 
 #
