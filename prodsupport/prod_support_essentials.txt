@@ -253,6 +253,10 @@ command: <path to the target batch script>
 machine: <target_hostname>
 condition: success(parent_job_name)
 
+# other job types:
+# BOX, a container which contains related batch jobs
+# FW, file watcher, checks for file required for command job to run and ingest the file
+
 # Check status of a batch job
 
 autorep -j <jobname>
@@ -262,6 +266,10 @@ autorep -j <jobname>
 FORCE_STARTJOB    # forces a job to run regardless if condition is met or not
 JOB_ON_HOLD    # suspends a job, and this will suspend all dependencies as well
 JOB_OFF_HOLD    # releases a job from suspension
-JOB_ON_ICE    # suspends a job without suspending the depedent jobs, effectively skipping it
-JOB_OFF_ICE    # will unsuspend (or unskip) to job
+JOB_ON_ICE    # suspends a job without suspending the dependent jobs, effectively skipping it
+JOB_OFF_ICE    # will unsuspend (or unskip) the job
 CHANGE_STATUS    # manually override job status to success or failure
+
+# Alerts
+CHASE    # indicates that the scheduler cannot verify the status of a running or starting job via the remote agen
+MAX_RUN_ALARM    # indicates job has run past it's expected run time
