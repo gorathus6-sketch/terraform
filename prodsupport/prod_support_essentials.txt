@@ -293,26 +293,35 @@ select sysdate from dual;
 
 insert_job: <job_name>
 job_type: c
-command: <path to the target batch script>
+command: <path to the target batch script>    # ie /path/script.sh or c:\path\script.ps1
 machine: <target_hostname>
 condition: success(parent_job_name)
 
 # other job types:
-# BOX, a container which contains related batch jobs
+# BOX, it does not run commands, rather it is a container which contains related batch jobs and controls flow and status
+# if a box job fails, all children fail
+# if a box job is on hold, child jobs will not run
 # FW, file watcher, checks for file required for command job to run and ingest the file
 
 # Check status of a batch job
 autorep -j <jobname>
 
 # autosys events
-FORCE_STARTJOB    # forces a job to run regardless if condition is met or not
-JOB_ON_HOLD    # suspends a job, and this will suspend all dependencies as well
-JOB_OFF_HOLD    # releases a job from suspension
-JOB_ON_ICE    # suspends a job without suspending the dependent jobs, effectively skipping it
-JOB_OFF_ICE    # will unsuspend (or unskip) the job
-CHANGE_STATUS    # manually override job status to success or failure
+
+sendevent -E FORCE_STARTJOB -J jobname    # forces a job to run regardless if condition is met or not
+
+sendevent -E JOB_ON_HOLD -J jobname    # suspends a job, and this will suspend all children as well, conditions are ignored
+
+sendevent -E JOB_OFF_HOLD -J jobname    # releases a job from suspension
+
+sendevent -E JOB_ON_ICE -J jobname    # suspends a job without suspending the children jobs (children still run), effectively skipping it, condition evalutes as if it doesn't exist
+
+sendevent -E JOB_OFF_ICE -J jobname    # will unsuspend (or unskip) the job
+
+sendevent -E CHANGE_STATUS -J jobname    # manually override job status to success or failure
 
 # Alerts
+JOB_FAILURE    # job failed with a non-0 exit code due to errors
 CHASE    # indicates that the scheduler cannot verify the status of a running or starting job via the remote agen
 MAX_RUN_ALARM    # indicates job has run past it's expected run time
 
@@ -322,3 +331,10 @@ s(parent_job)    # success
 f(parent_job)    # failure
 d(parent_job)    # done
 n(parent_job)    # not running
+
+# Prevent duplicate runs
+# use run_window
+# use max_run_alarm
+# use condition n(job)
+# use file watchers (FW)
+# use unique naming conventions
