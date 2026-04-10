@@ -11,6 +11,8 @@ grep -i <string or pattern value> <filename>    # can be partial filename using 
 
 grep -r <string> <filename>    # this will search recursively through sub dirs
 
+grep -iE "error|fail|exception"
+
 # trailers and headers
 tail -f <filename>    # to see an active log or actively written file increment in real time
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
@@ -42,6 +44,8 @@ awk '{sum += $1} END {print sum}' test_csv.csv
 # (e.g., for /etc/passwd):
 awk -F: '{print $1}' /etc/passwd
 # returns list of accounts, user or system owned
+
+awk '{print $1}' | sort | uniq -c | sort -nr    # frequency analysis
 
 
 # tee command
