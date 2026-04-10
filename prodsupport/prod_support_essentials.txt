@@ -338,3 +338,15 @@ n(parent_job)    # not running
 # use condition n(job)
 # use file watchers (FW)
 # use unique naming conventions
+
+
+#
+# FINTECH BATCH PROCESSING
+#
+
+# - End of Day: the EOD process ties up all ops for a given financial day and prepares the system for the next financial day
+
+# - Start of Day: SOD is the process which initiates a new business day, typically early in the morning prior to business hours and after overnight processing; Its marks the beginning of the operational day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
+
+
+
