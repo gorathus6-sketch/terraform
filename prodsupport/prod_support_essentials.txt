@@ -94,6 +94,15 @@ find /path/to/directory -type f -mtime +7 -exec gzip {} +
 find . -type f -mtime +7 -exec gzip {} +    # this will compress files at least 7 days old
 
 
+# diagnose disk IO bottlenecks
+
+iostat -xz 1
+
+vmstat 1
+
+iotop
+
+
 #
 # SQL
 #
