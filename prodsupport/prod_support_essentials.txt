@@ -111,30 +111,49 @@ du -sh    # shows how much space files/folders are taking in any given directory
 # Compress older/archived files to save space
 
 find /path/to/directory -type f -mtime +7 -exec gzip {} +
+
+# or in current directory:
+
 find . -type f -mtime +7 -exec gzip {} +    # this will compress files at least 7 days old
 
 
 # diagnose disk IO bottlenecks
 
-iostat -xz 1
+iostat -xz 1    # I/O bottlenecks
 
 vmstat 1
 
-iotop
+iotop    # per process IO
 
 
 # diagnose network issues
 
 ss -tulpn    # listening ports
+
 netstat -anp    # print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+
 lsof -i :<port_num>    # process using specified port number
+
 curl -v    # endpoint debugging
+
 dig/nslookup    # DNS
 
 
 #
-# SQL
+# -- SQL
 #
+
+# -- Atomicity, Consistency, Isolation, Durability (ACID)
+
+# -- Transaction Isolation Levels
+# -- Read Committed: default
+# -- Repeatable Read: prevent non-repeatable reads
+# -- serializable - strict, prevent phantom reads
+
+# -- Explain Plans
+# -- ID full table scans
+# -- check index usage
+# -- look for nested loops vs hash joins
 
 # -- check for table space alerts
 
