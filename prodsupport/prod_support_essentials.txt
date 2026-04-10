@@ -15,6 +15,8 @@ grep -r <string> <filename>    # this will search recursively through sub dirs
 
 grep -iE "error|fail|exception"    # multi pattern search
 
+grep -A3 -B3 “ERROR” logfile    # shows context arround errors
+
 # trailers and headers
 tail -f <filename>    # to see an active log or actively written file increment in real time
 tail -f <logfile> | grep --line-buffered ERROR    # real time error capture
@@ -361,8 +363,3 @@ n(parent_job)    # not running
 # - Start of Day: SOD is the process which initiates a new business day, typically early in the morning prior to business hours and after overnight processing; Its marks the beginning of the operational day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
 
 # - Cut off times (often SLA impacts) - deadlines for any particular process (ledger processing, start of day, statement processing, ACH processing/reconciliation), usually bound by a service level agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
-
-
-
-
-
