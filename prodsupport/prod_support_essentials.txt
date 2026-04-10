@@ -5,7 +5,7 @@
 #
 
 #
-# UNIX/LINUX
+# UNIX/LINUX COMMANDS
 #
 
 # grep for patterns
@@ -48,8 +48,15 @@ chmod g+s
 # finding files
 
 find <directory> -name <filename>    # E.g. find /ach -name ach_mmddyyyy.ach
-# also do find /ach -iname ach_mmddyyyy.ach 2> /dev/null to make the search non-case sensitive, and not return error messages
 
+# also you can enter:
+
+find /ach -iname ach_mmddyyyy.ach 2>/dev/null
+
+# to make the search non-case sensitive, and not return error messages
+
+# to find large files:
+find / -type f -size +500
 
 # awk
 awk '{print $x}' <filename>    # x denotes the column number of the target file
