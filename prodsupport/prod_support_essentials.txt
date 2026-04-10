@@ -13,7 +13,7 @@ grep -i <string or pattern value> <filename>    # can be partial filename using 
 
 grep -r <string> <filename>    # this will search recursively through sub dirs
 
-grep -iE "error|fail|exception"
+grep -iE "error|fail|exception"    # multi pattern search
 
 # trailers and headers
 tail -f <filename>    # to see an active log or actively written file increment in real time
