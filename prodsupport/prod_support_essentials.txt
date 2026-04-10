@@ -160,6 +160,16 @@ nslookup    # also DNS
 
 # -- Atomicity, Consistency, Isolation, Durability (ACID)
 
+# -- Atomicity (All or Nothing): Every step in a transaction is treated as a single, indivisible unit. Either the entire transaction succeeds and is saved (committed), or if any part fails, everything is undone (rolled back) to the previous state.
+# --Example: If you transfer $100 from Account A to Account B, atomicity ensures you don't end up in a situation where the money leaves A but never reaches B.
+
+# -- Consistency (Valid States Only): A transaction must move the database from one valid state to another, following all predefined rules and constraints, such as unique keys or foreign keys. If a transaction would violate these rules, it is canceled.
+
+# -- Isolation (Independent Execution): Multiple transactions happening at the same time should not interfere with each other. Each transaction should run as if it were the only one happening in the system.
+# -- Example: If two people try to book the last available seat on a flight simultaneously, isolation ensures only one succeeds and the other sees the seat as already taken.
+
+# -- Durability (Permanent Changes): Once a transaction is successfully committed, the changes are permanent and cannot be lost, even if the system crashes or loses power immediately after. This is typically achieved by saving the data to non-volatile storage like a disk.
+
 # -- Transaction Isolation Levels
 # -- Read Committed: default
 # -- Repeatable Read: prevent non-repeatable reads
