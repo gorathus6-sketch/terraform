@@ -44,7 +44,7 @@ chmod u+s
 
 chmod g+s
 
-# Also there are UMASK, which is an inversion of sorts for the set permissions, ie 022 = 755
+# Also there are UMASK, which is an inversion of sorts for the set permissions, ie 022 = 755. Sets rules for future files which don't exist yet.
 
 
 # finding files
