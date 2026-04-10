@@ -24,6 +24,21 @@ chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 
 
 chown <user>:<group> <filename>    # assigns a user and associated group to the file
 
+# add sticky bit
+
+chmod +t
+
+# add setuid
+
+chmod u+s
+
+# set gid
+
+chmod g+s
+
+# Also there are UMASK, which is an inversion of sorts for the set permissions, ie 022 = 755
+
+
 # finding files
 
 find <directory> -name <filename>    # E.g. find /ach -name ach_mmddyyyy.ach
