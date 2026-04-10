@@ -150,7 +150,8 @@ lsof -i :<port_num>    # process using specified port number
 
 curl -v    # endpoint debugging
 
-dig/nslookup    # DNS
+dig    # DNS
+nslookup    # also DNS
 
 
 #
