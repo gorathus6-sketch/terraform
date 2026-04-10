@@ -15,6 +15,7 @@ grep -iE "error|fail|exception"
 
 # trailers and headers
 tail -f <filename>    # to see an active log or actively written file increment in real time
+tail -f <logfile> | grep --line-buffered ERROR    # real time error capture
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
@@ -124,11 +125,11 @@ iotop
 
 # diagnose network issues
 
-ss -tulpn
-netstat -anp
-lsof -i :<port>
-curl -v
-dig/nslookup
+ss -tulpn    # listening ports
+netstat -anp    # print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+lsof -i :<port_num>    # process using specified port number
+curl -v    # endpoint debugging
+dig/nslookup    # DNS
 
 
 #
