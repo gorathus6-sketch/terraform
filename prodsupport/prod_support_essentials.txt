@@ -60,11 +60,21 @@ wc -l    # counts number of records, important if an ACH or statement file has a
 # processes
 
 top
-htop    # this will list processes in terms of CPU time first, memory second
+htop    # these will list processes in terms of CPU time first, memory second, great for identifying CPU hogs
 
 free -m     # this will show you free (and available) RAM in MB, as well as SWAP space memory
 
 ps -ef    # this will return the list of PIDs (processes taking CPU time)
+
+ps -fp <pid>    # see command line assosiated with the process
+
+ps aux --sort=-rss | head    # shows top memory hogs
+
+lsof -p <pid>    # see open files
+
+strace -p <pid>    # see system calls (if permissed or able)
+
+nice     #or renice    # reassigns process priority
 
 # if there is a zombie process (or if a process is no longer required to run:
 kill -9 <pid>
