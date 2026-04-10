@@ -78,6 +78,11 @@ awk -F: '{print $1}' /etc/passwd
 awk '{print $1}' | sort | uniq -c | sort -nr    # frequency analysis
 
 
+# sed
+
+sed -n ‘1, 50’ filename    # print lines 1-50
+sed ‘s/old/new/g’ file    # replace specified text
+
 # tee command
 <command> | sudo tee -a <output_file>    # duplicates output of command to a file in real time
 
