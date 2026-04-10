@@ -190,3 +190,29 @@ select sysdate from dual;
 # -- Cross Join: Returns the cartesian product of 2 tables
 #
 
+
+#
+# JOB CONTROL LANGUAGE
+#
+
+# Most prod support roles will be using batch processing schedulers such as cron, autosys, zena, airflow, control-m, dollar universe, etc.
+# Let's start with autosys
+
+insert_job: <job_name>
+job_type: c
+command: <path to the target batch script>
+machine: <target_hostname>
+condition: success(parent_job_name)
+
+# Check status of a batch job
+
+autorep -j <jobname>
+
+# autosys events
+
+FORCE_STARTJOB    # forces a job to run regardless if condition is met or not
+JOB_ON_HOLD    # suspends a job, and this will suspend all dependencies as well
+JOB_OFF_HOLD    # releases a job from suspension
+JOB_ON_ICE    # suspends a job without suspending the depedent jobs, effectively skipping it
+JOB_OFF_ICE    # will unsuspend (or unskip) to job
+CHANGE_STATUS    # manually override job status to success or failure
