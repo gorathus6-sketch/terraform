@@ -1,0 +1,27 @@
+It's been a while since I've taken any networking classes so I've been doing refreshers. Subnetting and CIDR especially.
+
+One thing I do remember with a CIDR, the larger the number following the '/' (class C defaults to /24), the less leasable IP addresses available. However, what I did seem to forget was where the /24 came from.
+
+But alas, the refresher helped me remember binary maths plays a part in CIDR.
+
+255.255.255.0/24 subnet mask is the default for class C. The 24 denotes 24-bits, AKA the starting 3 octets of 255.255.255.0, or in binary, 11111111.11111111.11111111.00000000. 
+
+When it comes to leasable IPs, 2 are reserved for the network/broadcast.
+
+/24 = 254 leasable IPs 
+
+/25 = 126 leasable IPs
+
+/26 = 62 leasable IPs
+
+/27 = 30 leasable IPs
+
+/28 = 14 leasable IPs
+
+/29 = 6 leasable IPs
+
+/30 = 2 leasable IPs
+
+/31 = no leasable IPs, this only works for a direct connection between two gateway devices
+
+Subnetting / CIDR is messy. The one thing I did truly enjoy from networking classes is getting to aux into a Cisco routers and configure via the terminal. Just for that fact alone, even though I've never intended to work as a network engineer, I probably should have gotten a CCNA when I was still in school just because some cloud services (like AWS VPC) are heavily reliant on networking best practices.
