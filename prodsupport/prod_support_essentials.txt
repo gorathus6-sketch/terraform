@@ -9,10 +9,12 @@
 # grep for patterns
 grep -i <string or pattern value> <filename>    # can be partial filename using * as a wildcard such as *.rpt or *OCT*
 
+grep -r <string> <filename>    # this will search recursively through sub dirs
+
 # trailers and headers
-tail -f    # to see an active log or actively written file increment in real time
-tail -<number>    # Shows the speficied number of rows towards EOF, defaults to -10
-head -<number>    # shows the specified number of rows towards BOF, defaults to -10
+tail -f <filename>    # to see an active log or actively written file increment in real time
+tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
+head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
 
 # awk
