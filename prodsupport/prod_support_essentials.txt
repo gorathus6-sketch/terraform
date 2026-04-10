@@ -79,6 +79,8 @@ nice     #or renice    # reassigns process priority
 # if there is a zombie process (or if a process is no longer required to run:
 kill -9 <pid>
 
+pmap <pid>    # memory map
+
 
 # disk space
 
