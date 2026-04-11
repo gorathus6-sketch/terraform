@@ -34,7 +34,7 @@ chmod XXX <filename>    # X's in XXX can denote 1-7, 1 = execute, 2 = write, 4 =
 
 chown <user>:<group> <filename>    # assigns a user and associated group to the file
 
-# add sticky bit
+# add sticky bit, this will prevent users from deleting or renaming files they don't own
 
 chmod +t
 
