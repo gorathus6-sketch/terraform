@@ -23,12 +23,14 @@ tail -f <logfile> | grep --line-buffered ERROR    # real time error capture
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
-# note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the intended business day (in the header) and files such as ACH or other transactions files should contain both the transaction amount and record amount (in the trailer).
+# note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the intended business day (in the header) and files such as ACH or other transactions files should contain
+both the transaction amount and record amount (in the trailer).
 
 
 # changing ownership and permissions
 
-chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group, third octet (--X) symbolizes user not associated with either of those, or "others"
+chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group,
+third octet (--X) symbolizes user not associated with either of those, or "others"
 
 chown <user>:<group> <filename>    # assigns a user and associated group to the file
 
@@ -165,15 +167,18 @@ nslookup    # also DNS
 
 # -- Atomicity, Consistency, Isolation, Durability (ACID)
 
-# -- Atomicity (All or Nothing): Every step in a transaction is treated as a single, indivisible unit. Either the entire transaction succeeds and is saved (committed), or if any part fails, everything is undone (rolled back) to the previous state.
+# -- Atomicity (All or Nothing): Every step in a transaction is treated as a single, indivisible unit. Either the entire transaction succeeds and is saved (committed), or if any part fails, everything is undone
+(rolled back) to the previous state.
 # --Example: If you transfer $100 from Account A to Account B, atomicity ensures you don't end up in a situation where the money leaves A but never reaches B.
 
-# -- Consistency (Valid States Only): A transaction must move the database from one valid state to another, following all predefined rules and constraints, such as unique keys or foreign keys. If a transaction would violate these rules, it is canceled.
+# -- Consistency (Valid States Only): A transaction must move the database from one valid state to another, following all predefined rules and constraints, such as unique keys or foreign keys. If a transaction
+would violate these rules, it is canceled.
 
 # -- Isolation (Independent Execution): Multiple transactions happening at the same time should not interfere with each other. Each transaction should run as if it were the only one happening in the system.
 # -- Example: If two people try to book the last available seat on a flight simultaneously, isolation ensures only one succeeds and the other sees the seat as already taken.
 
-# -- Durability (Permanent Changes): Once a transaction is successfully committed, the changes are permanent and cannot be lost, even if the system crashes or loses power immediately after. This is typically achieved by saving the data to non-volatile storage like a disk.
+# -- Durability (Permanent Changes): Once a transaction is successfully committed, the changes are permanent and cannot be lost, even if the system crashes or loses power immediately after. This is typically
+achieved by saving the data to non-volatile storage like a disk.
 
 # -- Transaction Isolation Levels
 # -- Read Committed: default
@@ -376,6 +381,8 @@ n(parent_job)    # not running
 
 # - End of Day: the EOD process ties up all ops for a given financial day and prepares the system for the next financial day
 
-# - Start of Day: SOD is the process which initiates a new business day, typically early in the morning prior to business hours and after overnight processing; Its marks the beginning of the operational day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
+# - Start of Day: SOD is the process which initiates a new business day, typically early in the morning prior to business hours and after overnight processing; Its marks the beginning of the operational
+day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
 
-# - Cut off times (often SLA impacts) - deadlines for any particular process (ledger processing, start of day, statement processing, ACH processing/reconciliation), usually bound by a service level agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
+# - Cut off times (often SLA impacts) - deadlines for any particular process (ledger processing, start of day, statement processing, ACH processing/reconciliation), usually bound by a service level
+agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
