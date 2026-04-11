@@ -36,15 +36,15 @@ chown <user>:<group> <filename>    # assigns a user and associated group to the 
 
 # add sticky bit, this will prevent users from deleting or renaming files they don't own
 
-chmod +t
+chmod +t filename
 
-# add setuid
+# add setuid, a special file permission that allows a user to run an executable with the permissions of the file's owner instead of their own
 
-chmod u+s
+chmod u+s filename
 
-# set gid
+# set gid (group id), when the file is executed, the process runs with the privileges of the group that owns the file, rather than the group of the user who started it.
 
-chmod g+s
+chmod g+s filename
 
 # Also there are UMASK, which is an inversion of sorts for the set permissions, ie 022 = 755. Sets rules for future files which don't exist yet.
 
