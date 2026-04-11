@@ -1,6 +1,6 @@
 #
 # PRODUCTION SUPPORT ESSENTIALS
-# By Trevor Flickinger
+# By Trevor Ian Flickinger
 # April, 2026
 #
 
@@ -24,13 +24,13 @@ tail -<number> <filename>    # Shows the speficied number of rows towards EOF, d
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
 # note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the intended business day (in the header) and files such as ACH or other transactions files should contain
-both the transaction amount and record amount (in the trailer).
+# both the transaction amount and record amount (in the trailer).
 
 
 # changing ownership and permissions
 
-chmod XXX <filename>    # XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group,
-third octet (--X) symbolizes user not associated with either of those, or "others"
+chmod XXX <filename>    # X's in XXX can denote 1-7, 1 = execute, 2 = write, 4 = read, 5 = read + exec, 6 = read+write, 7 = read+write+exec. First octet (X--) symbolizes the owner, second octet (-X-) the owner's group,
+# third octet (--X) symbolizes user not associated with either of those, or "others"
 
 chown <user>:<group> <filename>    # assigns a user and associated group to the file
 
@@ -185,10 +185,18 @@ achieved by saving the data to non-volatile storage like a disk.
 # -- Repeatable Read: prevent non-repeatable reads
 # -- serializable - strict, prevent phantom reads
 
+
 # -- Explain Plans
-# -- ID full table scans
+# -- Identity full table scans
+# -- To identify full table scans in SQL, you primarily use the database's built-in execution plan tools to see how the engine intends to access the data. A full table scan occurs when the database engine
+# -- reads every row in a table sequentially because no suitable index is available or the query optimizer determines a scan is more efficient than using one.  
+
 # -- check index usage
+# -- In SQL Server, you can check index usage primarily by querying Dynamic Management Views (DMVs) that track how often the query optimizer uses each index for read and write operations. 
+
 # -- look for nested loops vs hash joins
+# -- The primary difference between Nested Loops and Hash Joins is how they handle data scale and indexing. Nested Loops excel with small datasets and indexed lookups, while Hash Joins are the
+# -- "workhorses" for large, unindexed datasets
 
 # -- check for table space alerts
 
@@ -382,7 +390,7 @@ n(parent_job)    # not running
 # - End of Day: the EOD process ties up all ops for a given financial day and prepares the system for the next financial day
 
 # - Start of Day: SOD is the process which initiates a new business day, typically early in the morning prior to business hours and after overnight processing; Its marks the beginning of the operational
-day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
+# day, setting the date for transactions and allowing for actions such as rate maintenance and automatic liquidation
 
 # - Cut off times (often SLA impacts) - deadlines for any particular process (ledger processing, start of day, statement processing, ACH processing/reconciliation), usually bound by a service level
-agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
+# agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
