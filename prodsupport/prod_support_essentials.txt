@@ -15,7 +15,7 @@ grep -r <string> <filename>    # this will search recursively through sub dirs
 
 grep -iE "error|fail|exception"    # multi pattern search
 
-grep -A3 -B3 “ERROR” logfile    # shows context arround errors
+grep -A3 -B3 “ERROR” logfile    # shows context around errors
 
 # trailers and headers
 tail -f <filename>    # to see an active log or actively written file increment in real time
