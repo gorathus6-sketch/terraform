@@ -272,7 +272,7 @@ WHERE s.status = 'ACTIVE'
   AND s.last_call_et > &THRESHOLD;
 
 
-# -- check if a file has been ingestion (from say Servicemix)
+# -- check if a file has been ingested (from say Servicemix)
 
 select * from files where filename like '%ach%';
 
