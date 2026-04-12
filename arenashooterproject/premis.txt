@@ -1,8 +1,8 @@
 Objective: Create an arena shooter in the vein of Counterstrike, Unreal Tournament, and Quake Arena/Live/Champions, while also incorporating RPG elements.
 
 Factions:
-Federacion de la Nueva Tierra (FNT) soldiers
-Exclusionary Megaregion (EMR) Terrorists/Crimelords
+Federacion de la Nueva Tierra (FNT) soldiers    # the united earth government
+Exclusionary Megaregion (EMR) Terrorists/Crimelords    # essentially a country wide prison for those who are too violent to function in civilized society, or victims of circumstance
 
 Plot:
 In the year 2202, most of the Earth lives in a Solar Punk haven where poverty is non-existent and crime is a near-statistic impossibility.
