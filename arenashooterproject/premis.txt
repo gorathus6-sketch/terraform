@@ -1,4 +1,4 @@
-Objective: Create an arena shooter in the vein of Counterstrike, Unreal Tournament, and Quake Arena/Champions, while also incorporating RPG elements.
+Objective: Create an arena shooter in the vein of Counterstrike, Unreal Tournament, and Quake Arena/Live/Champions, while also incorporating RPG elements.
 
 Factions:
 Federacion de la Nueva Tierra (FNT) soldiers
