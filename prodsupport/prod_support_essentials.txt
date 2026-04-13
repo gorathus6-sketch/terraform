@@ -23,7 +23,8 @@ tail -f <logfile> | grep --line-buffered ERROR    # real time error capture
 tail -<number> <filename>    # Shows the speficied number of rows towards EOF, defaults to -10
 head -<number> <filename>    # shows the specified number of rows towards BOF, defaults to -10
 
-# note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the intended business day (in the header) and files such as ACH or other transactions files should contain
+# note: checking header or trailer at the BOF or EOF is important to ensure the file's date matches with the
+# intended business day (in the header) and files such as ACH or other transactions files should contain
 # both the transaction amount and record amount (in the trailer).
 
 
@@ -107,7 +108,7 @@ free -m     # this will show you free (and available) RAM in MB, as well as SWAP
 
 ps -ef    # this will return the list of PIDs (processes taking CPU time)
 
-ps -fp <pid>    # see command line assosiated with the process
+ps -fp <pid>    # see command line associated with the process
 
 ps aux --sort=-rss | head    # shows top memory hogs
 
@@ -117,7 +118,7 @@ strace -p <pid>    # see system calls (if permissed or able)
 
 nice     #or renice    # reassigns process priority
 
-# if there is a zombie process (or if a process is no longer required to run:
+# if there is a zombie process, or if a process is no longer required to run:
 kill -9 <pid>
 
 pmap <pid>    # memory map
