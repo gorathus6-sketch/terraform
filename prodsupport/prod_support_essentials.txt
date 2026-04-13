@@ -181,10 +181,14 @@ would violate these rules, it is canceled.
 # -- Durability (Permanent Changes): Once a transaction is successfully committed, the changes are permanent and cannot be lost, even if the system crashes or loses power immediately after. This is typically
 achieved by saving the data to non-volatile storage like a disk.
 
+
 # -- Transaction Isolation Levels
+
 # -- Read Committed: default
-# -- Repeatable Read: prevent non-repeatable reads
-# -- serializable - strict, prevent phantom reads
+
+# -- Repeatable Read: prevent non-repeatable reads    # --In SQL, a non-repeatable read is a concurrency problem that occurs when a transaction reads the same row twice but finds that the data has changed between those reads. This happens because another transaction modified and committed changes to that specific row after the first read but before the second.
+ 
+# -- serializable - strict, prevent phantom reads    # -- A phantom read in SQL occurs when a transaction runs the same query twice and gets a different set of rows each time because another transaction inserted or deleted data in between 
 
 
 # -- Explain Plans
@@ -288,7 +292,8 @@ select * from files where filename like '%ach%';
 # -- To help search for more recent files you can either:
 
 select * from files where filename like '%ach%' order by started desc;
-select * from files where filename like '%ach_mmddyyyy%'
+select * from files where filename like ‘%ach%’ order by ended desc;
+select * from files where filename like '%ach_mmddyyyy%';
 
 # -- check application status
 select * from cluster_info;    -- this will check if the applications are up and active, i.e. reported uptime will refresh if active
@@ -324,7 +329,7 @@ select sysdate from dual;
 # -- Data Integrity
 # -- primary keys
 # -- foreign keys
-# -- unique contraints
+# -- unique constraints    -- A UNIQUE constraint in SQL ensures that all values in a column (or a group of columns) are distinct across a table. It is a fundamental tool for maintaining data integrity by preventing duplicate entries, such as multiple users having the same email address or employee ID, or bank tables have unique ABA numbers or message headers for separate financial institutions 
 # -- check constraints
 
 
@@ -362,11 +367,11 @@ sendevent -E JOB_ON_ICE -J jobname    # suspends a job without suspending the ch
 
 sendevent -E JOB_OFF_ICE -J jobname    # will unsuspend (or unskip) the job
 
-sendevent -E CHANGE_STATUS -J jobname    # manually override job status to success or failure
+sendevent -E CHANGE_STATUS -s SUCCESS -J jobname    # manually override job status to success or failure, setting to success essentially “force completes” the job
 
 # Alerts
 JOB_FAILURE    # job failed with a non-0 exit code due to errors
-CHASE    # indicates that the scheduler cannot verify the status of a running or starting job via the remote agen
+CHASE    # indicates that the scheduler cannot verify the status of a running or starting job via the remote agent
 MAX_RUN_ALARM    # indicates job has run past it's expected run time
 
 
