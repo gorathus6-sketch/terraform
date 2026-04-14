@@ -22,7 +22,7 @@ if (LoadString(hInstance, IDS_APPTITLE, szTitle ARRAYSIZE(szTitle)))
                                0, 0,
                                SMTO_ABORTIFHUNG,
                                FINDME_TIMEOUT,
-                               &deResult))
+                               &dwResult))
         {
             if (dwResult == PWM_ACTIVATE)
             {
