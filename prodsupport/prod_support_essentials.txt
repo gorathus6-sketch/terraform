@@ -441,6 +441,10 @@ n(parent_job)    # not running
 # use file watchers (FW)
 # use unique naming conventions
 
+# IF A BATCH JOB FAILS
+# If you receive an alert that a batch job has failed in the scheduling tool UI, check the output. There should be an error message and exit code (non-0). If the output is non-descript,
+# see if it points to another log file on the host containg the agent. SSH or RDC to that host and view the log file which generated to see the specific error and exit status of the job.
+
 
 #
 # FINTECH BATCH PROCESSING
