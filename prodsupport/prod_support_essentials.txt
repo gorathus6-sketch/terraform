@@ -61,7 +61,7 @@ umask 027    # this will give an effective permissions set of 750 for files and 
 # Editing files in the terminal
 
 nano filename
-vi filename        # these are simple text editors used for editing config files in the terminal, nano being the more
+vi filename        # these are text editors used for editing config files in the terminal, nano being the more
                    # user friendly of the two
 
 
