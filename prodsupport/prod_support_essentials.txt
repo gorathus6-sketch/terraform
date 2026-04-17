@@ -251,17 +251,23 @@ Inside the CTE, essentially hard‑coding a small list of table names — BANK, 
 # -- checking for data base locks
 
 SELECT
-    lo.session_id,
-    s.serial#,
-    s.username,
-    s.osuser,
-    s.machine,
-    o.object_name,
-    lo.locked_mode
-FROM v$locked_object lo
+    lo.session_id,        -- IDs the unique ID of the session holding the lock 
+    s.serial#,            -- serial num of the session used with ID to uniquely ID or kill a session
+    s.username,           -- database schema name associated with the session
+    s.osuser,             -- O/S username of person or process connected
+    s.machine,            -- name of computer or server where connection originated
+    o.object_name,        -- name of the table or index that is being locked
+    lo.locked_mode        -- numeric code representing type of lock (row share, exclusive, etc)
+FROM v$locked_object lo   -- pulls from dynamic performance view, lists every active lock in
+                          -- the system; labeled ‘lo’ for short
 JOIN dba_objects o ON lo.object_id = o.object_id
+  -- connects the lock info to the master list of objects to see the actual name (Bank) rather
+  -- than just a numeric ID
 JOIN v$session s ON lo.session_id = s.sid
+  -- connects the lock info to the session table to see who actually logged in and from which
+  -- machine
 WHERE o.object_name = 'BANK'
+  -- limits the output to only show locks affecting table named ‘Bank’
 
 
 # -- inserting client static data
