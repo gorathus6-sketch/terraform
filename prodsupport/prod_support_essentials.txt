@@ -207,32 +207,32 @@ achieved by saving the data to non-volatile storage like a disk.
 
 # -- check for table space alerts
 
-WITH TARGET_TABLES AS (                              -- start common table expression CTE, ‘Target_Tables’
-    SELECT 'BANK' AS TBL_NAME FROM DUAL  -- add first row, table name ‘Bank”
+WITH TARGET_TABLES AS (                                               -- start common table expression CTE, ‘Target_Tables’
+    SELECT 'BANK' AS TBL_NAME FROM DUAL                               -- add first row, table name ‘Bank”
     UNION ALL                                                         -- UNION ALL keeps duplicates, faster than Union
-    SELECT 'MESSAGE_FEED' FROM DUAL        -- add second row: Message_Feed
+    SELECT 'MESSAGE_FEED' FROM DUAL                                   -- add second row: Message_Feed
     UNION ALL
-    SELECT 'USER' FROM DUAL                          -- add third row: User
+    SELECT 'USER' FROM DUAL                                           -- add third row: User
     UNION ALL
-    SELECT 'SHORT_CODE' FROM DUAL            -- add fourth row: Short_Code
+    SELECT 'SHORT_CODE' FROM DUAL                                     -- add fourth row: Short_Code
 )
 SELECT
-    T.TBL_NAME,                                                    -- return table name from the CTE
-    A.ALERT_TYPE,                                                -- alert type from Alerts table, can be null if no match
-    A.ALERT_DATE,                                                -- alert date from Alerts table
-    A.SEVERITY,                                                      -- severity of the alert
-    TS.TABLESPACE_NAME,                                 -- tablespace name from User_Tablespaces
-FROM TARGET_TABLES T                                 -- Use the common table expression as the driving table
-LEFT JOIN ALERTS A                                           -- Left Join so all Target_Tables rows appear, even if
-                                                                               -- no alerts
-    ON T.TBL_NAME = A.OBJECT_NAME            -- match alerts where Object_Name equals tablename 
-LEFT JOIN USER_TABLESPACES TS                -- Left Join to get table space info
-    ON TS.TABLESPACE_NAME = (                     -- match on tablespacename returned by subquery
-        SELECT TABLESPACE_NAME                    -- subquery: find the tablespace for this table
-        FROM USER_TABLES                             -- User_Tables contains metadata about user owned tables
-        WHERE TABLE_NAME = T.TBL_NAME      -- Match the table name from the CTE
+    T.TBL_NAME,                                                       -- return table name from the CTE
+    A.ALERT_TYPE,                                                     -- alert type from Alerts table, can be null if no match
+    A.ALERT_DATE,                                                     -- alert date from Alerts table
+    A.SEVERITY,                                                       -- severity of the alert
+    TS.TABLESPACE_NAME,                                               -- tablespace name from User_Tablespaces
+FROM TARGET_TABLES T                                                  -- Use the common table expression as the driving table
+LEFT JOIN ALERTS A                                                    -- Left Join so all Target_Tables rows appear, even if
+                                                                      -- no alerts
+    ON T.TBL_NAME = A.OBJECT_NAME                                     -- match alerts where Object_Name equals tablename 
+LEFT JOIN USER_TABLESPACES TS                                         -- Left Join to get table space info
+    ON TS.TABLESPACE_NAME = (                                         -- match on tablespacename returned by subquery
+        SELECT TABLESPACE_NAME                                        -- subquery: find the tablespace for this table
+        FROM USER_TABLES                                              -- User_Tables contains metadata about user owned tables
+        WHERE TABLE_NAME = T.TBL_NAME                                 -- Match the table name from the CTE
     )
-ORDER BY A.ALERT_DATE DESC;                    -- Sort results by the most recent alert first
+ORDER BY A.ALERT_DATE DESC;                                           -- Sort results by the most recent alert first
 
 
 # -- checking for data base locks
@@ -265,33 +265,34 @@ COMMIT;
 
 # -- check for long running queries / sessions
 
-SET PAGESIZE 0    -- Removes all pagination, including internal headers and page breaks.
-SET LINESIZE 200    -- Sets the width of the output line so the data doesn’t’ wrap awkward
-SET FEEDBACK OFF    --prevents “n rows selected” message from appearing at the end
-SET HEADING OFF    -- hides column names at the top of the output
-SET VERIFY OFF    -- stops the terminal from showing you the old and new values
-                                  -- of variables
-SET ECHO OFF    -- prevents the script itself from being printed on screen while it runs
-SET TERMOUT OFF    -- silences the ouput to screen, usually used for spooling to a file
+SET PAGESIZE 0                                    -- Removes all pagination, including internal headers and page breaks.
+SET LINESIZE 200                                  -- Sets the width of the output line so the data doesn’t’ wrap awkward
+SET FEEDBACK OFF                                  -- prevents “n rows selected” message from appearing at the end
+SET HEADING OFF                                   -- hides column names at the top of the output
+SET VERIFY OFF                                    -- stops the terminal from showing you the old and new values
+                                                  -- of variables
+SET ECHO OFF                                      -- prevents the script itself from being printed on screen while it runs
+SET TERMOUT OFF                                   -- silences the ouput to screen, usually used for spooling to a file
 
 -- Threshold in seconds (modify as needed)
-DEFINE THRESHOLD = 300;  -- creates reusable variable so you don’t have to hunt thru the
+DEFINE THRESHOLD = 300;                           -- creates reusable variable so you don’t have to hunt thru the
                                                   -- code to change it
 
 -- Query for long-running active sessions, targets v$session, a dynamic performance view in
--- Oracle that shows current DB activity
-SELECT 'LONG_RUNNING: SID=' || s.sid ||    -- Labels the session ID for easy grep/parse
-    ' SERIAL=' || s.serial# ||                -- add serial num to uniquely identify the session
-    ' USER=' || s.username ||             -- ID which DB user is running the query
-    ' SQL_ID=' || s.sql_id ||                 -- The unique ID of the specific SQL STMT being executed
-    ' SECONDS=' || s.last_call_et       -- shows duration (seconds) the session has been in
-                                                          -- in its current state
--- the dual pipes ‘||’ are used to concatenate or join text / data into a single string
-FROM v$session s    -- the s is an alias for the v$session system view
-WHERE s.status = 'ACTIVE'                    -- only look at sessions currently doing work
-  AND s.username IS NOT NULL             -- excludes background system processes
-  AND s.last_call_et > &THRESHOLD;    -- only shows sessions running longer than the defined
-                                                                 -- threshhold
+-- Oracle that shows current DB activity.
+-- Note: the dual pipes ‘||’ are used to concatenate or join text / data into a single string
+SELECT 'LONG_RUNNING: SID=' || s.sid ||           -- Labels the session ID for easy grep/parse
+    ' SERIAL=' || s.serial# ||                    -- add serial num to uniquely identify the session
+    ' USER=' || s.username ||                     -- ID which DB user is running the query
+    ' SQL_ID=' || s.sql_id ||                     -- The unique ID of the specific SQL STMT being executed
+    ' SECONDS=' || s.last_call_et                 -- shows duration (seconds) the session has been in
+                                                  -- in its current state
+
+FROM v$session s                                  -- the s is an alias for the v$session system view
+WHERE s.status = 'ACTIVE'                         -- only look at sessions currently doing work
+  AND s.username IS NOT NULL                      -- excludes background system processes
+  AND s.last_call_et > &THRESHOLD;                -- only shows sessions running longer than the defined
+                                                  -- threshhold
 
 # -- Note: v$session is like a “task manager” for SQL. Use it to ID active processes that are taking resources
 
