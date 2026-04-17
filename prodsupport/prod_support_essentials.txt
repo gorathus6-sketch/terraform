@@ -234,6 +234,19 @@ LEFT JOIN USER_TABLESPACES TS                                         -- Left Jo
     )
 ORDER BY A.ALERT_DATE DESC;                                           -- Sort results by the most recent alert first
 
+# -- NOTE: This query starts by defining a Common Table Expression called TARGET_TABLES.
+Inside the CTE, essentially hard‑coding a small list of table names — BANK, MESSAGE_FEED, USER, and SHORT_CODE. Use UNION ALL because one doesn’t need deduplication and it’s more efficient.
+
+# -- In the main query, select from that CTE and treat it as my driving table.
+
+# -- From there, left‑join into an ALERTS table, matching each table name to any alert records where the alert’s OBJECT_NAME equals the table name. Use a LEFT JOIN so that even if a table has no alerts, it still
+# -- appears in the output.
+
+# -- Next, left‑join into USER_TABLESPACES, but the join condition uses a subquery.
+# -- That subquery looks up the tablespace for each table by querying USER_TABLES and matching on the table name. So effectively, one is resolving each table’s tablespace dynamically.
+
+# -- Finally, order the results by alert date in descending order so the most recent alerts appear first."
+
 
 # -- checking for data base locks
 
