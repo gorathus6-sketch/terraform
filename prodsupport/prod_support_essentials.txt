@@ -47,7 +47,9 @@ chmod u+s filename
 
 chmod g+s filename
 
-# Also there are UMASK, which is an inversion of sorts for the set permissions, ie 022 = 755. Sets rules for future files which don't exist yet.
+# Also there is the umask command
+
+umask    # this will show you the default of 0022, which is operatively the same as a permission set of 755.
 
 
 # finding files
