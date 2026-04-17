@@ -93,7 +93,7 @@ awk '{sum += $1} END {print sum}' test_csv.csv
 awk -F: '{print $1}' /etc/passwd
 # returns list of accounts, user or system owned
 
-awk '{print $1}' | sort | uniq -c | sort -nr    # frequency analysis
+awk '{print $1}' filename | sort | uniq -c | sort -nr    # frequency analysis
 
 
 # sed
