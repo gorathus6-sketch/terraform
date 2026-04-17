@@ -447,7 +447,7 @@ n(parent_job)    # not running
 
 
 #
-# FINTECH BATCH PROCESSING
+# FINTECH BATCH PROCESSING FLOW
 #
 
 # - End of Day: the EOD process ties up all ops for a given financial day and prepares the system for the next financial day
