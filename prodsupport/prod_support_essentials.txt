@@ -47,9 +47,10 @@ chmod u+s filename
 
 chmod g+s filename
 
+
 # Also there is the umask command
 
-umask    # this will show you the default of 0022, which is operatively the same as a permission set of 755.
+umask    # this will show you the default of 0022, which is essentially the same as a permission set of 755.
 
 
 # finding files
