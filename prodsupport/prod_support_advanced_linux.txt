@@ -1,0 +1,43 @@
+#
+# Prod Support II: ADVANCED LINUX
+#
+#
+
+# Find and identify TCP/IP switches switches
+
+lldpcli show neighbors
+
+# or
+
+lldpctl
+
+
+# Kernel dumps
+
+kdump
+
+# this requires either
+
+sudo dnf install kexec-tools    # Red Hat
+sudo apt install kdump-tools    # Ubuntu/Debian
+sudo zypper install kdump kexec-tools    # SuSe
+
+nano /etc/default/grub
+
+# on the GRUB_CMDLINE_LINUX line, add:
+
+crashkernel=256M
+
+# apply changes and exit nano (or VIM). Then update the boot loader:
+
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg    # Red Hat
+sudo update-grub    # Debian/Ubuntu
+
+# dumps will be saved to /var/crash by default. This can be changed with editing:
+
+/etc/kdump.conf    # Red Hat
+/etc/default/kdump-tools    # Ubuntu/Debian
+
+# enable the service
+
+sudo systemctl enable –now kdump.service
