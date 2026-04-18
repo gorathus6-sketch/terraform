@@ -472,3 +472,18 @@ n(parent_job)    # not running
 
 # - Cut off times (often SLA impacts) - deadlines for any particular process (ledger processing, start of day, statement processing, ACH processing/reconciliation), usually bound by a service level
 # agreement (SLA) which can incur financial penalty to the service provider if the SLA is not met.
+
+
+# FTP issues
+
+# Some issues can occur, like file not received or intermittent timeout due to too many concurrent
+# connections, resulting in 'connection reset by peer' error.  Normally these tasks can be
+# restarted after conditions are met.
+
+# However, you might run into ‘broken pipe’ errors, where the connection is terminated for various
+# reasons. One such reason can be the transmission exceeds a certain duration or transfer size.
+# If you find yourself transmitting more statements to the client after new reporting metrics are
+# Introduced, you might exceed the amount of data allowed to transmit in a session. This means
+# You either need to send files over multiple processes, or better yet, if the reports are un-
+# compressed, you can gzip or zip the reports to reduced the size of the reports sent, and the
+# client can uncompress the data on their end. 
