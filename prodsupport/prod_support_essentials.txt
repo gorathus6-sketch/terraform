@@ -50,19 +50,19 @@ chmod g+s filename
 
 # Also there is the umask command
 
-umask    # this will show you the default of 0022, which is essentially the same as a permission set of 755.
+umask    # this will show you the default of 0022, which is essentially the same as a permission set of 755 for files or 644 for directories.
 
 # In some more sensitive prod environments, a more restrictive umask is ideal
 
 umask 027    # this will give an effective permissions set of 750 for files and 640 for directories.
-             # To make the change permanent outside of a single session, add ‘umask 027’ to the ~/.bashrc file.
+        # To make the change permanent outside of a single session, add ‘umask 027’ to the ~/.bashrc file.
 
 
-# Editing files in the terminal
+# Editing Files
 
 nano filename
 vi filename        # these are text editors used for editing config files in the terminal, nano being the more
-                   # user friendly of the two
+        # user friendly of the two
 
 
 # finding files
@@ -171,7 +171,7 @@ netstat -anp    # print network connections, routing tables, interface statistic
 
 netstat -ano | find “portnum”
 
-lsof -i :<portnum>    # process using specified port number
+lsof -i :<port_num>    # process using specified port number
 
 curl -v    # endpoint debugging
 
@@ -222,45 +222,43 @@ achieved by saving the data to non-volatile storage like a disk.
 
 # -- check for table space alerts
 
-WITH TARGET_TABLES AS (                                               -- start common table expression CTE, ‘Target_Tables’
-    SELECT 'BANK' AS TBL_NAME FROM DUAL                               -- add first row, table name ‘Bank”
-    UNION ALL                                                         -- UNION ALL keeps duplicates, faster than Union
-    SELECT 'MESSAGE_FEED' FROM DUAL                                   -- add second row: Message_Feed
+WITH TARGET_TABLES AS (                    -- start common table expression CTE, ‘Target_Tables’
+    SELECT 'BANK' AS TBL_NAME FROM DUAL    -- add first row, table name ‘Bank”
+    UNION ALL                              -- UNION ALL keeps duplicates, faster than Union
+    SELECT 'MESSAGE_FEED' FROM DUAL        -- add second row: Message_Feed
     UNION ALL
-    SELECT 'USER' FROM DUAL                                           -- add third row: User
+    SELECT 'USER' FROM DUAL                -- add third row: User
     UNION ALL
-    SELECT 'SHORT_CODE' FROM DUAL                                     -- add fourth row: Short_Code
+    SELECT 'SHORT_CODE' FROM DUAL          -- add fourth row: Short_Code
 )
 SELECT
-    T.TBL_NAME,                                                       -- return table name from the CTE
-    A.ALERT_TYPE,                                                     -- alert type from Alerts table, can be null if no match
-    A.ALERT_DATE,                                                     -- alert date from Alerts table
-    A.SEVERITY,                                                       -- severity of the alert
-    TS.TABLESPACE_NAME,                                               -- tablespace name from User_Tablespaces
-FROM TARGET_TABLES T                                                  -- Use the common table expression as the driving table
-LEFT JOIN ALERTS A                                                    -- Left Join so all Target_Tables rows appear, even if
-                                                                      -- no alerts
-    ON T.TBL_NAME = A.OBJECT_NAME                                     -- match alerts where Object_Name equals tablename 
-LEFT JOIN USER_TABLESPACES TS                                         -- Left Join to get table space info
-    ON TS.TABLESPACE_NAME = (                                         -- match on tablespacename returned by subquery
-        SELECT TABLESPACE_NAME                                        -- subquery: find the tablespace for this table
-        FROM USER_TABLES                                              -- User_Tables contains metadata about user owned tables
-        WHERE TABLE_NAME = T.TBL_NAME                                 -- Match the table name from the CTE
+    T.TBL_NAME,                            -- return table name from the CTE
+    A.ALERT_TYPE,                          -- alert type from Alerts table, can be null if no match
+    A.ALERT_DATE,                          -- alert date from Alerts table
+    A.SEVERITY,                            -- severity of the alert
+    TS.TABLESPACE_NAME,                    -- tablespace name from User_Tablespaces
+FROM TARGET_TABLES T                       -- Use the common table expression as the driving table
+LEFT JOIN ALERTS A                         -- Left Join so all Target_Tables rows appear, even if
+                                           -- no alerts
+    ON T.TBL_NAME = A.OBJECT_NAME          -- match alerts where Object_Name equals tablename 
+LEFT JOIN USER_TABLESPACES TS              -- Left Join to get table space info
+    ON TS.TABLESPACE_NAME = (              -- match on tablespacename returned by subquery
+        SELECT TABLESPACE_NAME             -- subquery: find the tablespace for this table
+        FROM USER_TABLES                   -- User_Tables contains metadata about user owned tables
+        WHERE TABLE_NAME = T.TBL_NAME      -- Match the table name from the CTE
     )
-ORDER BY A.ALERT_DATE DESC;                                           -- Sort results by the most recent alert first
+ORDER BY A.ALERT_DATE DESC;                -- Sort results by the most recent alert first
 
 # -- NOTE: This query starts by defining a Common Table Expression called TARGET_TABLES.
 Inside the CTE, essentially hard‑coding a small list of table names — BANK, MESSAGE_FEED, USER, and SHORT_CODE. Use UNION ALL because one doesn’t need deduplication and it’s more efficient.
 
-# -- In the main query, select from that CTE and treat it as my driving table.
+In the main query, select from that CTE and treat it as the driving table.
+From there, left‑join into an ALERTS table, matching each table name to any alert records where the alert’s OBJECT_NAME equals the table name. Use a LEFT JOIN so that even if a table has no alerts, it still appears in the output.
 
-# -- From there, left‑join into an ALERTS table, matching each table name to any alert records where the alert’s OBJECT_NAME equals the table name. Use a LEFT JOIN so that even if a table has no alerts, it still
-# -- appears in the output.
+Next, left‑join into USER_TABLESPACES, but the join condition uses a subquery.
+That subquery looks up the tablespace for each table by querying USER_TABLES and matching on the table name. So effectively, one is resolving each table’s tablespace dynamically.
 
-# -- Next, left‑join into USER_TABLESPACES, but the join condition uses a subquery.
-# -- That subquery looks up the tablespace for each table by querying USER_TABLES and matching on the table name. So effectively, one is resolving each table’s tablespace dynamically.
-
-# -- Finally, order the results by alert date in descending order so the most recent alerts appear first."
+Finally, order the results by alert date in descending order so the most recent alerts appear first."
 
 
 # -- checking for data base locks
@@ -299,34 +297,34 @@ COMMIT;
 
 # -- check for long running queries / sessions
 
-SET PAGESIZE 0                                    -- Removes all pagination, including internal headers and page breaks.
-SET LINESIZE 200                                  -- Sets the width of the output line so the data doesn’t’ wrap awkward
-SET FEEDBACK OFF                                  -- prevents “n rows selected” message from appearing at the end
-SET HEADING OFF                                   -- hides column names at the top of the output
-SET VERIFY OFF                                    -- stops the terminal from showing you the old and new values
-                                                  -- of variables
-SET ECHO OFF                                      -- prevents the script itself from being printed on screen while it runs
-SET TERMOUT OFF                                   -- silences the ouput to screen, usually used for spooling to a file
+SET PAGESIZE 0                             -- Removes all pagination, including internal headers and page breaks.
+SET LINESIZE 200                           -- Sets the width of the output line so the data doesn’t’ wrap awkward
+SET FEEDBACK OFF                           -- prevents “n rows selected” message from appearing at the end
+SET HEADING OFF                            -- hides column names at the top of the output
+SET VERIFY OFF                             -- stops the terminal from showing you the old and new values
+                                           -- of variables
+SET ECHO OFF                               -- prevents the script itself from being printed on screen while
+                                           -- it runs
+SET TERMOUT OFF                            -- silences the ouput to screen, usually used for spooling to a file
 
--- Threshold in seconds (modify as needed)
-DEFINE THRESHOLD = 300;                           -- creates reusable variable so you don’t have to hunt thru the
-                                                  -- code to change it
+                                           -- Threshold in seconds (modify as needed)
+DEFINE THRESHOLD = 300;                    -- creates reusable variable so you don’t have to hunt thru the
+                                           -- code to change it
 
 -- Query for long-running active sessions, targets v$session, a dynamic performance view in
--- Oracle that shows current DB activity.
--- Note: the dual pipes ‘||’ are used to concatenate or join text / data into a single string
-SELECT 'LONG_RUNNING: SID=' || s.sid ||           -- Labels the session ID for easy grep/parse
-    ' SERIAL=' || s.serial# ||                    -- add serial num to uniquely identify the session
-    ' USER=' || s.username ||                     -- ID which DB user is running the query
-    ' SQL_ID=' || s.sql_id ||                     -- The unique ID of the specific SQL STMT being executed
-    ' SECONDS=' || s.last_call_et                 -- shows duration (seconds) the session has been in
-                                                  -- in its current state
-
-FROM v$session s                                  -- the s is an alias for the v$session system view
-WHERE s.status = 'ACTIVE'                         -- only look at sessions currently doing work
-  AND s.username IS NOT NULL                      -- excludes background system processes
-  AND s.last_call_et > &THRESHOLD;                -- only shows sessions running longer than the defined
-                                                  -- threshhold
+-- Oracle that shows current DB activity
+SELECT 'LONG_RUNNING: SID=' || s.sid ||    -- Labels the session ID for easy grep/parse
+    ' SERIAL=' || s.serial# ||             -- add serial num to uniquely identify the session
+    ' USER=' || s.username ||              -- ID which DB user is running the query
+    ' SQL_ID=' || s.sql_id ||              -- The unique ID of the specific SQL STMT being executed
+    ' SECONDS=' || s.last_call_et          -- shows duration (seconds) the session has been in
+                                           -- in its current state
+-- the dual pipes ‘||’ are used to concatenate or join text / data into a single string
+FROM v$session s    -- the s is an alias for the v$session system view
+WHERE s.status = 'ACTIVE'                  -- only look at sessions currently doing work
+  AND s.username IS NOT NULL               -- excludes background system processes
+  AND s.last_call_et > &THRESHOLD;         -- only shows sessions running longer than the defined
+                                           -- threshhold
 
 # -- Note: v$session is like a “task manager” for SQL. Use it to ID active processes that are taking resources
 
@@ -380,6 +378,17 @@ GROUP BY SUM()    -- total value
 # -- EXPLAIN PLAN FOR <query>, eg.
 
 EXPLAIN SELECT * from cluster_info    -- this will explain what the syntax will execute, including the cost, i.e. if it’s a full table scan and how many rows, which will help to pinpoint if you need to add a WHERE or LIMIT parameter in order to prevent DB latency
+
+
+# -- LIMIT
+
+# -- Use Limit to return a select amount of rows, as some tables can cause huge values with can cause
+# -- the DB latency to spike.
+
+SELECT * from file_table where filename like ‘%ach%’ order by started DESC LIMIT 20
+SELECT * from file_table where filename like ‘%ach%’ order by ended DESC LIMIT 20
+# -- This will limit to the most 20 recent records as DESC is used in tandem
+
 
 # -- How to read cost, cardinality, access path
 
@@ -456,6 +465,7 @@ n(parent_job)    # not running
 # use file watchers (FW)
 # use unique naming conventions
 
+
 # IF A BATCH JOB FAILS
 # If you receive an alert that a batch job has failed in the scheduling tool UI, check the output. There should be an error message and exit code (non-0). If the output is non-descript,
 # see if it points to another log file on the host containg the agent. SSH or RDC to that host and view the log file which generated to see the specific error and exit status of the job.
@@ -477,7 +487,7 @@ n(parent_job)    # not running
 # FTP issues
 
 # Some issues can occur, like file not received or intermittent timeout due to too many concurrent
-# connections, resulting in 'connection reset by peer' error.  Normally these tasks can be
+# connections, resulting in a ‘connection reset by peer’ error.  Normally these tasks can be
 # restarted after conditions are met.
 
 # However, you might run into ‘broken pipe’ errors, where the connection is terminated for various
