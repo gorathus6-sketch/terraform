@@ -349,7 +349,7 @@ select sysdate from dual;
 # -- Investigate a slow service:
 
 SELECT column_names FROM table_name WHERE conditions LIMIT 10;
--- use limit as these can normally return millions of roles and create even more latency spikes
+-- use limit as these can normally return millions of rows and create even more latency spikes
 
 
 # -- JOIN CONCEPTS
