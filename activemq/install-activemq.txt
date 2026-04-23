@@ -1,0 +1,35 @@
+#
+# INSTALL APACHE ACTIVE MQ SERVER
+#
+
+#
+# 1) Install Java
+#
+
+sudo apt update
+sudo apt install defautl-jre
+sudo apt install default-jdk
+sudo apt install openjdk-21-jdk
+
+# verify install
+
+java --version
+
+#
+# Install Apache ActiveMQ
+#
+
+# assumes you downloaded zip archive (apache-activemq-6.2.5-bin.tar.gz)
+
+sudo cp /home/gorat/apache-activemq-6.2.5-bin.tar.gz /opt/vulnerability_matching/apache-activemq-6.2.5/
+cd /opt/vulnerability_matching/apache-activemq-6.2.5
+sudo tar -xzvf apache-activemq-6.2.5-bin.tar.gz
+cd apache-activemq-6.2.5/bin
+./activemq start
+
+# verify with
+
+./activemq status
+ps -ef|grep -i activemq
+netstat -nl | grep 61616
+
